@@ -1,4 +1,4 @@
 package org.primshic.stepan.dao;
 
-public class MatchDAO {
+public class MatchDAO extends BaseDAO{
 }
