@@ -14,18 +14,15 @@ import lombok.Setter;
 public class Player {
     @Id
     @Column(name="ID")
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     public Player(Integer id, String name) {
         this.id = id;
         this.name = name;
     }
-
     @Column(name="Name")
     private String name;
-
-    @OneToOne(cascade = CascadeType.PERSIST)
-    private Match match;
 
     @Override
     public String toString() {
@@ -35,4 +32,8 @@ public class Player {
                 ", match=" + match +
                 '}';
     }
+
+    @OneToOne(cascade = CascadeType.PERSIST)
+    private Match match;
+
 }

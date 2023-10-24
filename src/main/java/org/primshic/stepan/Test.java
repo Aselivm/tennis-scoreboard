@@ -14,6 +14,7 @@ public class Test {
         SessionFactory sessionFactory = configuration.buildSessionFactory();
         Player player1 = new Player(1,"Steve");
         Player player2 = new Player(2,"Tom");
-        BaseDAO baseDAO = new BaseDAO(new Match(player1, player2),sessionFactory);
+        Match match = new Match(player1,player2);
+        BaseDAO baseDAO = new BaseDAO(match,sessionFactory);
     }
 }
