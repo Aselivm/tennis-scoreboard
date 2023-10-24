@@ -1,9 +1,6 @@
 package org.primshic.stepan.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,20 +11,25 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Match {
 
     @Id
     @Column(name="ID")
     private Integer id;
 
-    @Column(name="Player1")
+    @OneToOne(mappedBy = "match")
+    @JoinColumn(name = "player2_id",referencedColumnName = "id")
     private Player player1;
 
-    @Column(name="Player2")
+    @OneToOne(mappedBy = "match")
+    @JoinColumn(name = "player1_id",referencedColumnName = "id")
     private Player player2;
 
-    @Column(name="Winner")
+    @JoinColumn(name = "player_winner_id", referencedColumnName = "id")
     private Player winner;
 
+    public Match(Player player1, Player player2) {
+        this.player1 = player1;
+        this.player2 = player2;
+    }
 }
