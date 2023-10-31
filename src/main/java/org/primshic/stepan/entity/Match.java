@@ -19,17 +19,17 @@ public class Match {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne()
+    @OneToOne()
     @JoinColumn(name = "player1_id")
     @Cascade(value = {org.hibernate.annotations.CascadeType.PERSIST,org.hibernate.annotations.CascadeType.DELETE})
     private Player player1;
 
-    @ManyToOne()
+    @OneToOne()
     @JoinColumn(name = "player2_id")
     @Cascade(value = {org.hibernate.annotations.CascadeType.PERSIST,org.hibernate.annotations.CascadeType.DELETE})
     private Player player2;
 
-    @ManyToOne()
+    @OneToOne()
     @JoinColumn(name = "player_winner_id")
     private Player winner;
 
