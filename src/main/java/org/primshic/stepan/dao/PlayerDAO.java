@@ -27,6 +27,7 @@ public class PlayerDAO extends BaseDAO implements CRUD<Player> {
     @Override
     public void save(Player player) {
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
+            session.beginTransaction();
             session.persist(player);
             session.getTransaction().commit();
         }
@@ -40,6 +41,7 @@ public class PlayerDAO extends BaseDAO implements CRUD<Player> {
     @Override
     public void delete(int id) {
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
+            session.beginTransaction();
             Player player = session.get(Player.class,id);
             session.delete(player);
             session.getTransaction().commit();

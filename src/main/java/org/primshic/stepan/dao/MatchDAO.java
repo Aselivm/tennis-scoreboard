@@ -27,6 +27,7 @@ public class MatchDAO extends BaseDAO implements CRUD<Match>{
     @Override
     public void save(Match match){
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
+            session.beginTransaction();
             session.persist(match);
             session.getTransaction().commit();
         }
@@ -40,6 +41,7 @@ public class MatchDAO extends BaseDAO implements CRUD<Match>{
     @Override
     public void delete(int id){
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
+            session.beginTransaction();
             Match match = session.get(Match.class,id);
             session.delete(match);
             session.getTransaction().commit();
