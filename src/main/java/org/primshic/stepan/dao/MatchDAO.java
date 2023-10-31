@@ -1,8 +1,9 @@
 package org.primshic.stepan.dao;
 
-import jakarta.transaction.Transactional;
 import org.hibernate.SessionFactory;
-import org.primshic.stepan.model.Match;
+import org.primshic.stepan.entity.Match;
+
+import javax.transaction.Transactional;
 
 @Transactional
 public class MatchDAO extends BaseDAO{
