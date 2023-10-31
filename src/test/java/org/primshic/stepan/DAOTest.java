@@ -2,34 +2,34 @@ package org.primshic.stepan;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.primshic.stepan.dao.MatchDAO;
-import org.primshic.stepan.dao.PlayerDAO;
-import org.primshic.stepan.entity.Match;
-import org.primshic.stepan.entity.Player;
+import org.primshic.stepan.dao.CompletedMatchesDAO;
+import org.primshic.stepan.dao.PlayersDAO;
+import org.primshic.stepan.entity.Matches;
+import org.primshic.stepan.entity.Players;
 
 public class DAOTest {
 
 
     @Test
     public void dao(){
-        Player player1 = new Player("SteveTEST");
-        Player player2 = new Player("TomTEST");
-        Match match = new Match();
-        match.setPlayer1(player1);
-        match.setPlayer2(player2);
-        MatchDAO matchDAO = new MatchDAO();
-        PlayerDAO playerDAO = new PlayerDAO();
+        Players players1 = new Players("SteveTEST");
+        Players players2 = new Players("TomTEST");
+        Matches matches = new Matches();
+        matches.setPlayers1(players1);
+        matches.setPlayers2(players2);
+        CompletedMatchesDAO completedMatchesDAO = new CompletedMatchesDAO();
+        PlayersDAO playersDAO = new PlayersDAO();
 
-        playerDAO.save(player1);
-        playerDAO.save(player2);
-        matchDAO.save(match);
+        playersDAO.save(players1);
+        playersDAO.save(players2);
+        completedMatchesDAO.save(matches);
 
-        matchDAO.index();
+        completedMatchesDAO.index();
 
-        System.out.println(playerDAO.showByName("SteveTEST").get(0).getName());
-        System.out.println(playerDAO.showByName("TomTEST").get(0).getName());
+        System.out.println(playersDAO.showByName("SteveTEST").get(0).getName());
+        System.out.println(playersDAO.showByName("TomTEST").get(0).getName());
 
-        matchDAO.delete(1);
-        Assert.assertThrows(Exception.class,()->playerDAO.delete(1));
+        completedMatchesDAO.delete(1);
+        Assert.assertThrows(Exception.class,()-> playersDAO.delete(1));
     }
 }

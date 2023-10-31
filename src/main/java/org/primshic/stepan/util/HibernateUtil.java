@@ -4,8 +4,8 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.primshic.stepan.entity.Match;
-import org.primshic.stepan.entity.Player;
+import org.primshic.stepan.entity.Matches;
+import org.primshic.stepan.entity.Players;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class HibernateUtil {
@@ -13,8 +13,8 @@ public class HibernateUtil {
 
     static {
         final Configuration configuration = new Configuration()
-                .addAnnotatedClass(Player.class)
-                .addAnnotatedClass(Match.class);
+                .addAnnotatedClass(Players.class)
+                .addAnnotatedClass(Matches.class);
         sessionFactory = configuration.buildSessionFactory();
     }
 

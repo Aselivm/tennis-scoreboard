@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Match {
+public class Matches {
 
     @Id
     @Column(name="id")
@@ -22,16 +22,16 @@ public class Match {
     @OneToOne()
     @JoinColumn(name = "player1_id")
     @Cascade(value = org.hibernate.annotations.CascadeType.DELETE)
-    private Player player1;
+    private Players players1;
 
     @OneToOne()
     @JoinColumn(name = "player2_id")
     @Cascade(value = org.hibernate.annotations.CascadeType.DELETE)
-    private Player player2;
+    private Players players2;
 
     @OneToOne()
     @JoinColumn(name = "player_winner_id")
-    private Player winner;
+    private Players winner;
 
 
 }

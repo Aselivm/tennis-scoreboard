@@ -2,53 +2,53 @@ package org.primshic.stepan.dao;
 
 
 import org.hibernate.Session;
-import org.primshic.stepan.entity.Player;
+import org.primshic.stepan.entity.Players;
 import org.primshic.stepan.util.HibernateUtil;
 
 import java.util.List;
 import java.util.Optional;
 
-public class PlayerDAO extends BaseDAO implements CRUD<Player> {
+public class PlayersDAO extends BaseDAO implements CRUD<Players> {
 
     @Override
-    public List<Player> index() {
+    public List<Players> index() {
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
-            return session.createQuery("FROM Player").getResultList();
+            return session.createQuery("FROM Players").getResultList();
         }
     }
 
     @Override
-    public Optional<Player> show(int id) {
+    public Optional<Players> show(int id) {
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
-            return Optional.of(session.get(Player.class,id));
+            return Optional.of(session.get(Players.class,id));
         }
     }
 
-    public List<Player> showByName(String name) {
+    public List<Players> showByName(String name) {
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
-            return session.createQuery("FROM Player where name = :name").setParameter("name",name).getResultList();
+            return session.createQuery("FROM Players where name = :name").setParameter("name",name).getResultList();
         }
     }
     @Override
-    public void save(Player player) {
+    public void save(Players players) {
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
             session.beginTransaction();
-            session.persist(player);
+            session.persist(players);
             session.getTransaction().commit();
         }
     }
 
     @Override
     @Deprecated
-    public void update(int id, Player player) {
+    public void update(int id, Players players) {
     }
 
     @Override
     public void delete(int id) {
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
             session.beginTransaction();
-            Player player = session.get(Player.class,id);
-            session.delete(player);
+            Players players = session.get(Players.class,id);
+            session.delete(players);
             session.getTransaction().commit();
         }
     }

@@ -12,13 +12,13 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Player {
+public class Players {
     @Id
     @Column(name="id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    public Player( String name) {
+    public Players(String name) {
         this.name = name;
     }
     @Column(name="name")
