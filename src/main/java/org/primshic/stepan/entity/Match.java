@@ -21,12 +21,12 @@ public class Match {
 
     @OneToOne()
     @JoinColumn(name = "player1_id")
-    @Cascade(value = {org.hibernate.annotations.CascadeType.PERSIST,org.hibernate.annotations.CascadeType.DELETE})
+    @Cascade(value = org.hibernate.annotations.CascadeType.DELETE)
     private Player player1;
 
     @OneToOne()
     @JoinColumn(name = "player2_id")
-    @Cascade(value = {org.hibernate.annotations.CascadeType.PERSIST,org.hibernate.annotations.CascadeType.DELETE})
+    @Cascade(value = org.hibernate.annotations.CascadeType.DELETE)
     private Player player2;
 
     @OneToOne()

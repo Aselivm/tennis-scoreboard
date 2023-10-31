@@ -24,6 +24,11 @@ public class PlayerDAO extends BaseDAO implements CRUD<Player> {
         }
     }
 
+    public List<Player> showByName(String name) {
+        try(Session session = HibernateUtil.getSessionFactory().openSession()){
+            return session.createQuery("FROM Player where name = :name").setParameter("name",name).getResultList();
+        }
+    }
     @Override
     public void save(Player player) {
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
