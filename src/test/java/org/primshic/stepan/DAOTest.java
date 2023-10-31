@@ -9,8 +9,9 @@ import org.primshic.stepan.entity.Player;
 
 public class DAOTest {
 
+
     @Test
-    public void dao(){
+    public void dao(){//TODO make test order independent
         Player player1 = new Player("Steve");
         Player player2 = new Player("Tom");
         Match match = new Match();

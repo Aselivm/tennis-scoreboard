@@ -7,7 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Player")
+@Table(name = "Player",indexes = @Index(name="idx_player_name",columnList = "name"))
 @Getter
 @Setter
 @NoArgsConstructor
