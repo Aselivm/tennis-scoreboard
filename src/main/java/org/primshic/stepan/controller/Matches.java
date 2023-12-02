@@ -7,10 +7,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet(name = "Matches", urlPatterns = "/matches")
-public class Matches extends BaseServlet{
+public class Matches extends BaseServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
+        req.getRequestDispatcher(pathToViews + "matches.jsp").forward(req, resp);
     }
 
     @Override

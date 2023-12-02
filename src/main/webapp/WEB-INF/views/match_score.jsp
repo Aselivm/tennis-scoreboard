@@ -8,17 +8,17 @@
     </style>
 </head>
 <body>
-<div class="match-score">
-    <div class="match-score-title">Match score</div>
+<div class="main-block">
+    <div class="title">Match score</div>
 
-    <div class="match-score-table">
+    <div class="table">
         <div class="players">
             <div class="table-header">PLAYERS</div>
             <div class="player-name">
                 Nadal
             </div>
             <div class="player-name">
-                Federer
+                Federersdaadsasdadsasdasdasddas
             </div>
         </div>
 
