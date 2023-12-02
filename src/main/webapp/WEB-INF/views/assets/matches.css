@@ -9,7 +9,7 @@
     padding-right: 100px;
     padding-top: 40px;
     border-radius: 50px;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 .title {
@@ -32,6 +32,8 @@
 }
 
 .table-header, .id, .player {
+    display: flex;
+    justify-content: center;
     border-color: rgb(97, 125, 133);
     border-style: solid;
     border-width: 2px;
@@ -44,7 +46,6 @@
 
 .table, .title {
     display: flex;
-    flex: 1;
     justify-content: center;
 }
 
