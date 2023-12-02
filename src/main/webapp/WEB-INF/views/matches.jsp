@@ -11,9 +11,8 @@
     <title>
         Matches page
     </title>
-    <link rel="stylesheet" href="general.css">
-    <link rel="stylesheet" href="matches.css">
-    <link rel="stylesheet" href="main.css">
+    <%@include file="/WEB-INF/views/assets/matches.css" %>
+    <%@include file="/WEB-INF/views/assets/general.css" %>
 </head>
 <body>
 <div class="finished-matches">
