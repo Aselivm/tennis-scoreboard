@@ -12,7 +12,7 @@
 
     <div class="match-score-table">
         <div class="players">
-            <div class="table-header">PLAYER</div>
+            <div class="table-header">PLAYERS</div>
             <div class="player-name">
                 Nadal
             </div>
