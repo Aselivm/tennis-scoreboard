@@ -10,7 +10,7 @@ import java.io.IOException;
 public class MatchScore extends BaseServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
+        req.getRequestDispatcher(pathToViews+"match_score.jsp").forward(req,resp);
     }
 
     @Override

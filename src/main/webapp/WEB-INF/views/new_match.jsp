@@ -1,15 +1,26 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: step6
-  Date: 05.11.2023
-  Time: 21:02
-  To change this template use File | Settings | File Templates.
---%>
 <html>
+
 <head>
-    <title>Title</title>
+    <title>
+        New match page
+    </title>
+    <style>
+        <%@include file="/WEB-INF/views/assets/main.css" %>
+    </style>
 </head>
+
 <body>
-${string}
+<div class="new-game-inputs">
+    <div class="player">
+        <div class="player-name">Player name 1:</div>
+        <input placeholder="Steve" class="player-name-input">
+    </div>
+    <div class="player">
+        <div class="player-name">Player name 2:</div>
+        <input placeholder="John" class="player-name-input">
+    </div>
+    <button class="start-button">Start</button>
+</div>
 </body>
+
 </html>
