@@ -48,7 +48,10 @@ public class MatchScoreServlet extends BaseServlet {
             match.getMatchScore().getPlayer1Score().addPoint();
         } else if (match.getPlayer2_id() == playerId) {
             match.getMatchScore().getPlayer2Score().addPoint();
+        } else {
+            //todo throw exception
         }
+
         resp.sendRedirect("/match-score?uuid=" + uuid);
     }
 }

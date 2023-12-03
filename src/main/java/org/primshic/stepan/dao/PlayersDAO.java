@@ -2,6 +2,8 @@ package org.primshic.stepan.dao;
 
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import org.primshic.stepan.entity.Players;
 import org.primshic.stepan.util.HibernateUtil;
 
@@ -12,29 +14,52 @@ public class PlayersDAO extends BaseDAO implements CRUD<Players> {
 
     @Override
     public List<Players> index() {
-        try(Session session = HibernateUtil.getSessionFactory().openSession()){
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             return session.createQuery("FROM Players").getResultList();
         }
     }
 
     @Override
-    public Optional<Players> show(int id) {
-        try(Session session = HibernateUtil.getSessionFactory().openSession()){
-            return Optional.of(session.get(Players.class,id));
+    public Optional<Players> getById(int id) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return Optional.of(session.get(Players.class, id));
         }
     }
 
-    public List<Players> showByName(String name) {
-        try(Session session = HibernateUtil.getSessionFactory().openSession()){
-            return session.createQuery("FROM Players where name = :name").setParameter("name",name).getResultList();
+    public List<Players> indexByName(String name) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("FROM Players where name = :name").setParameter("name", name).getResultList();
         }
     }
+
+    public Optional<Players> getByName(String name) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            String hql = "FROM Players WHERE name = :playerName";
+            Query<Players> query = session.createQuery(hql, Players.class);
+            query.setParameter("playerName", name);
+            return Optional.ofNullable(query.uniqueResult());
+        }
+    }
+
     @Override
-    public void save(Players players) {
-        try(Session session = HibernateUtil.getSessionFactory().openSession()){
-            session.beginTransaction();
-            session.persist(players);
-            session.getTransaction().commit();
+    public Optional<Players> save(Players savedPlayer) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Transaction transaction = null;
+
+            try {
+                transaction = session.beginTransaction();
+
+                session.persist(savedPlayer);
+
+                transaction.commit();
+            } catch (Exception e) {
+                if (transaction != null) {
+                    transaction.rollback();
+                }
+                throw e; // rethrow the exception after rollback
+            }
+
+            return Optional.of(savedPlayer);
         }
     }
 
@@ -45,9 +70,9 @@ public class PlayersDAO extends BaseDAO implements CRUD<Players> {
 
     @Override
     public void delete(int id) {
-        try(Session session = HibernateUtil.getSessionFactory().openSession()){
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
-            Players players = session.get(Players.class,id);
+            Players players = session.get(Players.class, id);
             session.delete(players);
             session.getTransaction().commit();
         }

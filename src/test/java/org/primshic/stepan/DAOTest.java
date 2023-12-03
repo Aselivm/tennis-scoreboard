@@ -11,7 +11,7 @@ public class DAOTest {
 
 
     @Test
-    public void dao(){
+    public void dao() {
         Players players1 = new Players("SteveTEST");
         Players players2 = new Players("TomTEST");
         Matches matches = new Matches();
@@ -26,10 +26,10 @@ public class DAOTest {
 
         completedMatchesDAO.index();
 
-        System.out.println(playersDAO.showByName("SteveTEST").get(0).getName());
-        System.out.println(playersDAO.showByName("TomTEST").get(0).getName());
+        System.out.println(playersDAO.indexByName("SteveTEST").get(0).getName());
+        System.out.println(playersDAO.indexByName("TomTEST").get(0).getName());
 
         completedMatchesDAO.delete(1);
-        Assert.assertThrows(Exception.class,()-> playersDAO.delete(1));
+        Assert.assertThrows(Exception.class, () -> playersDAO.delete(1));
     }
 }
