@@ -60,16 +60,16 @@
             </div>
         </div>
     </div>
-    <div class="add-point-button-div">
-        <form method="post" action="/match-score?uuid=<%=request.getAttribute("uuid")%>">
+    <form method="post" action="/match-score?uuid=<%=request.getAttribute("uuid")%>">
+        <div class="add-point-button-div">
             <button name="player" value="<%=player1.getId()%>" type="submit" class="add-point-button">Player 1 wins
                 point!
             </button>
             <button name="player" value="<%=player2.getId()%>" type="submit" class="add-point-button">Player 2 wins
                 point!
             </button>
-        </form>
-    </div>
+        </div>
+    </form>
 </div>
 </body>
 </html>
