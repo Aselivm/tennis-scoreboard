@@ -1,35 +1,35 @@
 package org.primshic.stepan.entity;
 
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Cascade;
 
-import javax.persistence.*;
 
 @Entity
-@Table(name="Match")
+@Table(name = "Match")
 @Getter
 @Setter
 @NoArgsConstructor
 public class Matches {
 
     @Id
-    @Column(name="id")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToOne()
+    @ManyToOne()
     @JoinColumn(name = "player1_id")
     @Cascade(value = org.hibernate.annotations.CascadeType.DELETE)
     private Players players1;
 
-    @OneToOne()
+    @ManyToOne()
     @JoinColumn(name = "player2_id")
     @Cascade(value = org.hibernate.annotations.CascadeType.DELETE)
     private Players players2;
 
-    @OneToOne()
+    @ManyToOne()
     @JoinColumn(name = "player_winner_id")
     private Players winner;
 

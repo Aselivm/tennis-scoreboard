@@ -1,4 +1,3 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 
 <head>
@@ -13,18 +12,19 @@
 
 <body>
 <div class="new-game-inputs">
-    <div class="player">
-        <div class="player-name">Player name 1:</div>
-        <input class="player-name-input" placeholder="Steve">
-    </div>
-    <div class="player">
-        <div class="player-name">Player name 2:</div>
-        <input class="player-name-input" placeholder="John">
-    </div>
-    <div class="start-button-div">
-        <button class="start-button">Start</button>
-    </div>
-
+    <form method="post" action="${pageContext.request.contextPath}/new-match">
+        <div class="player">
+            <div class="player-name">Player name 1:</div>
+            <input type="text" class="player-name-input" placeholder="Steve" name="player_name_1">
+        </div>
+        <div class="player">
+            <div class="player-name">Player name 2:</div>
+            <input type="text" class="player-name-input" placeholder="John" name="player_name_2">
+        </div>
+        <div class="start-button-div">
+            <button type="submit" class="start-button">Start</button>
+        </div>
+    </form>
 </div>
 </body>
 
