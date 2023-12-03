@@ -18,6 +18,6 @@ public class Score {
     private Set set;
 
     public void addPoint() {
-        this.point = point.addPoint();
+        this.point = point.increaseCounter();
     }//todo временная мера
 }

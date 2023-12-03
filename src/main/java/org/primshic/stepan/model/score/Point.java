@@ -1,9 +1,9 @@
 package org.primshic.stepan.model.score;
 
-import lombok.ToString;
+import lombok.Getter;
 
-@ToString
-public enum Point {
+@Getter
+public enum Point implements ScoreSystem<Point> {
     LOVE(0), FIFTEEN(15), THIRTY(30), FORTY(40);
 
     Point(int points) {
@@ -12,11 +12,8 @@ public enum Point {
 
     private final int counter;
 
-    public int getCounter() {
-        return counter;
-    }
-
-    public Point addPoint() {
+    @Override
+    public Point increaseCounter() {
         Point[] values = Point.values();
         int nextIndex = (this.ordinal() + 1) % values.length;
         return values[nextIndex];
