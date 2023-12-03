@@ -1,4 +1,2 @@
-package org.primshic.stepan.model;
-
-public class MatchScore {
+package org.primshic.stepan.model;public class MatchScore {
 }
