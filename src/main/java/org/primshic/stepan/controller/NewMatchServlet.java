@@ -15,7 +15,7 @@ import java.util.UUID;
 
 
 @WebServlet(name = "New match", urlPatterns = "/new-match")
-public class NewMatch extends BaseServlet {
+public class NewMatchServlet extends BaseServlet {
     private final PlayersService playersService = new PlayersService();
 
     @Override
@@ -28,8 +28,8 @@ public class NewMatch extends BaseServlet {
         String player1Name = req.getParameter("player_name_1");
         String player2Name = req.getParameter("player_name_2");
 
-        Optional<Players> player1 = playersService.saveOrGet(player1Name);
-        Optional<Players> player2 = playersService.saveOrGet(player2Name);
+        Optional<Players> player1 = playersService.getEntity(player1Name);
+        Optional<Players> player2 = playersService.getEntity(player2Name);
 
         Match match = new Match(player1.get().getId(), player2.get().getId());
 

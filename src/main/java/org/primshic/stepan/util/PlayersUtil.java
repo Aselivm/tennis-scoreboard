@@ -9,6 +9,6 @@ public class PlayersUtil {
     private static final PlayersService playersService = new PlayersService();
 
     public static boolean isUnique(String name) {
-        return playersService.showByName(name).isEmpty();
+        return playersService.getByName(name).isEmpty();
     }
 }

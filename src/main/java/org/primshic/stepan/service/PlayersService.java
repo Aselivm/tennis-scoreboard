@@ -9,7 +9,7 @@ import org.primshic.stepan.util.HibernateUtil;
 import java.util.Optional;
 
 public class PlayersService {
-    public Optional<Players> showByName(String name) {
+    public Optional<Players> getByName(String name) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             String hql = "FROM Players WHERE name = :playerName";
             Query<Players> query = session.createQuery(hql, Players.class);
@@ -18,12 +18,19 @@ public class PlayersService {
         }
     }
 
-    public Optional<Players> saveOrGet(String name) {
-        Optional<Players> player2 = showByName(name);
-        if (player2.isEmpty()) {
-            player2 = save(name);
+    public Optional<Players> getById(int id) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Players player = session.get(Players.class, id);
+            return Optional.ofNullable(player);
         }
-        return player2;
+    }
+
+    public Optional<Players> getEntity(String name) {
+        Optional<Players> player = getByName(name);
+        if (player.isEmpty()) {
+            player = save(name);
+        }
+        return player;
     }
 
     public Optional<Players> save(String name) {
@@ -45,7 +52,8 @@ public class PlayersService {
                 throw e; // rethrow the exception after rollback
             }
 
-            return Optional.ofNullable(players);
+            return Optional.of(players);
         }
     }
+
 }
