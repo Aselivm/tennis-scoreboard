@@ -3,6 +3,7 @@ package org.primshic.stepan.controller;
 import org.primshic.stepan.entity.Players;
 import org.primshic.stepan.model.Match;
 import org.primshic.stepan.model.MatchScore;
+import org.primshic.stepan.model.Score;
 import org.primshic.stepan.service.OngoingMatchesService;
 import org.primshic.stepan.service.PlayersService;
 
@@ -23,7 +24,7 @@ public class MatchScoreServlet extends BaseServlet {
         UUID uuid = UUID.fromString(req.getParameter("uuid"));
         Match match = OngoingMatchesService.getMatch(uuid);
 
-        Optional<Players> player1 = playersService.getById(match.getPlayer1_id());
+        Optional<Players> player1 = playersService.getById(match.getPlayer1_id()); //todo 2 запроса в бд, сделать 1
         Optional<Players> player2 = playersService.getById(match.getPlayer2_id());
         MatchScore matchScore = match.getMatchScore();
         req.setAttribute("player1", player1.get());
@@ -44,10 +45,12 @@ public class MatchScoreServlet extends BaseServlet {
             playerId = Integer.parseInt(player);
         }//todo перенести куда-нибудь в Util
 
+        Score player1Score = match.getMatchScore().getPlayer1Score();
+        Score player2Score = match.getMatchScore().getPlayer2Score();
         if (match.getPlayer1_id() == playerId) {
-            match.getMatchScore().getPlayer1Score().addPoint();
+            match.getMatchScore().addPoint(player1Score, player2Score);
         } else if (match.getPlayer2_id() == playerId) {
-            match.getMatchScore().getPlayer2Score().addPoint();
+            match.getMatchScore().addPoint(player2Score, player1Score);
         } else {
             //todo throw exception
         }

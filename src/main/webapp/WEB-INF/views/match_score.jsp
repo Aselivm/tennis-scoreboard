@@ -53,14 +53,14 @@
         <div class="points">
             <div class="table-header">POINTS</div>
             <div class="player-points">
-                <%=matchScore.getPlayer1Score().getPoint().getCounter()%>
+                <%=matchScore.getPlayer1Score().getPoint().getView()%>
             </div>
             <div class="player-points">
-                <%=matchScore.getPlayer2Score().getPoint().getCounter()%>
+                <%=matchScore.getPlayer2Score().getPoint().getView()%>
             </div>
         </div>
     </div>
-    <form method="post" action="/match-score?uuid=<%=request.getAttribute("uuid")%>">
+    <form method="post" action="${pageContext.request.contextPath}/match-score?uuid=<%=request.getAttribute("uuid")%>">
         <div class="add-point-button-div">
             <button name="player" value="<%=player1.getId()%>" type="submit" class="add-point-button">Player 1 wins
                 point!

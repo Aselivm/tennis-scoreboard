@@ -13,4 +13,8 @@ public class Game implements ScoreSystem<Game> {
         counter++;
         return this;
     }//todo тестирование
+
+    public void reset() {
+        counter = 0;
+    }
 }
