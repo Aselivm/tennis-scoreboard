@@ -3,9 +3,9 @@ package org.primshic.stepan.controller;
 import org.primshic.stepan.entity.Players;
 import org.primshic.stepan.model.Match;
 import org.primshic.stepan.model.MatchScore;
-import org.primshic.stepan.model.Score;
 import org.primshic.stepan.service.OngoingMatchesService;
 import org.primshic.stepan.service.PlayersService;
+import org.primshic.stepan.util.ScoreboardUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -44,17 +44,7 @@ public class MatchScoreServlet extends BaseServlet {
         if (player != null) {
             playerId = Integer.parseInt(player);
         }//todo перенести куда-нибудь в Util
-
-        Score player1Score = match.getMatchScore().getPlayer1Score();
-        Score player2Score = match.getMatchScore().getPlayer2Score();
-        if (match.getPlayer1_id() == playerId) {
-            match.getMatchScore().addPoint(player1Score, player2Score);
-        } else if (match.getPlayer2_id() == playerId) {
-            match.getMatchScore().addPoint(player2Score, player1Score);
-        } else {
-            //todo throw exception
-        }
-
+        ScoreboardUtil.addPoint(match, playerId);
         resp.sendRedirect("/match-score?uuid=" + uuid);
     }
 }

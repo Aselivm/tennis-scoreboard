@@ -19,4 +19,5 @@ public class MatchScore {
     public void addPoint(Score winner, Score loser) {
         matchScoreCalculation.calculate(winner, loser);
     }
+
 }
