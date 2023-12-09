@@ -1,4 +1,4 @@
-package org.primshic.stepan.model.score;
+package org.primshic.stepan.service.score_system;
 
 import lombok.Getter;
 
@@ -18,10 +18,7 @@ public enum Point implements ScoreSystem<Point> {
 
     private int counter;
 
-    public Point reset() {
-        return Point.LOVE;
-    }
-
+    //todo когда будем создавать dto, то перенесем этот метод в метод-маппер преобразующий модель в дто
     public Object getView() {
         if (ad == null) return counter;
         else return ad;

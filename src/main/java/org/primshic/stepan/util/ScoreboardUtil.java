@@ -11,6 +11,7 @@ public class ScoreboardUtil {
     private static final FinishedMatchesPersistenceService finishedMatchesPersistenceService =
             new FinishedMatchesPersistenceService();
 
+    //todo вау, как же я заебался рефакторить. refactoring needed
     public static void addPoint(Match match, int playerId) {
         Score playerScore;
         Score opponentScore;
@@ -31,7 +32,9 @@ public class ScoreboardUtil {
         //todo check if game finished
         if (playerScore.getSet().getCounter() == 2) {
             finishedMatchesPersistenceService.persist(match, playerId);
-            //todo надо ещё где-то зарендерить страничку
+            //todo надо где-то зарендерить страничку
         }
+
     }
+
 }

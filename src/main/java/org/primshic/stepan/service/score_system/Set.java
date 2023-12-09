@@ -1,4 +1,4 @@
-package org.primshic.stepan.model.score;
+package org.primshic.stepan.service.score_system;
 
 import lombok.Getter;
 import lombok.ToString;

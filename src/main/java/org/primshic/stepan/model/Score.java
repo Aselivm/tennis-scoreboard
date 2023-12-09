@@ -2,21 +2,17 @@ package org.primshic.stepan.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.primshic.stepan.model.score.Game;
-import org.primshic.stepan.model.score.Point;
-import org.primshic.stepan.model.score.Set;
+import org.primshic.stepan.service.score_system.Game;
+import org.primshic.stepan.service.score_system.Point;
+import org.primshic.stepan.service.score_system.Set;
 
 @Getter
 @Setter
 public class Score {
-    private Score() {
+    public Score() {
         this.point = Point.LOVE;
         this.game = new Game();
         this.set = new Set();
-    }
-
-    public static Score initScore() {
-        return new Score();
     }
 
     private Set set;

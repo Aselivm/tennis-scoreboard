@@ -1,9 +1,9 @@
 package org.primshic.stepan.service;
 
 import org.primshic.stepan.model.Score;
-import org.primshic.stepan.model.score.Game;
-import org.primshic.stepan.model.score.Point;
-import org.primshic.stepan.model.score.Set;
+import org.primshic.stepan.service.score_system.Game;
+import org.primshic.stepan.service.score_system.Point;
+import org.primshic.stepan.service.score_system.Set;
 
 //TODO рефакторим это, а потом все остальное
 public class MatchScoreCalculationService {
@@ -15,24 +15,25 @@ public class MatchScoreCalculationService {
     private Point winnerPoint;
     private Point loserPoint;
 
+    //todo применить какой-нибудь паттерн. Например "Strategy" или "Chain of Responsibility"
     public void calculate(Score winnerScore, Score loserScore) {
         init(winnerScore, loserScore);
 
-        if (shouldResetPoints()) {
+        if (requiresResetPoints()) {
             resetPoints(winnerScore, loserScore);
-        } else if (shouldIncreasePoint(winnerPoint)) {
+        } else if (requiresIncreasePoint()) {
             handlePointIncrease(winnerScore);
-        } else if (shouldIncreaseGame(loserPoint) || shouldIncreaseGame(winnerPoint)) {
+        } else if (requiresIncreaseGame()) {
             handleGameIncrease(winnerScore);
         } else {
-            handleDeuce(winnerScore, loserScore);
+            handleAdvantage(winnerScore, loserScore);
         }
 
-        if (shouldIncreaseSet()) {
+        if (requiresIncreaseSet()) {
             handleSetIncrease(winnerScore);
         }
 
-        if (shouldEndMatch()) {
+        if (requiresEndMatch()) {
             matchEnded();
         }
     }
@@ -40,15 +41,15 @@ public class MatchScoreCalculationService {
     private void handlePointIncrease(Score winnerScore) {
         Point increased = winnerPoint.increaseCounter();
         winnerScore.setPoint(increased);
-    }
+    }//sss
 
     private void handleGameIncrease(Score winnerScore) {
         Game increased = winnerGame.increaseCounter();
         winnerScore.setGame(increased);
-        winnerScore.pointReset();
-    }
+        winnerScore.setPoint(Point.LOVE); //todo DRY. Make reset method somewhere
+    }///sss
 
-    private void handleDeuce(Score winnerScore, Score loserScore) {
+    private void handleAdvantage(Score winnerScore, Score loserScore) {
         winnerScore.setPoint(Point.AD);
         loserScore.setPoint(Point.LOVE);
     }
@@ -56,13 +57,15 @@ public class MatchScoreCalculationService {
     private void handleSetIncrease(Score winnerScore) {
         Set increased = winnerSet.increaseCounter();
         winnerScore.setSet(increased);
-        winnerScore.gameReset();
-        winnerScore.pointReset();
+        winnerScore.setGame(new Game());
+        winnerScore.setPoint(Point.LOVE);
     }
 
 
     //todo реализовать и убрать отсюда
 
+    //todo rename
+    @Deprecated
     public void matchEnded() {
         System.out.println("конец");
     }
@@ -76,29 +79,29 @@ public class MatchScoreCalculationService {
         loserPoint = loserScore.getPoint();
     }
 
-    private boolean shouldResetPoints() {
+    private boolean requiresResetPoints() {
         return loserPoint == Point.AD;
-    }
+    }//ss
 
     private void resetPoints(Score winnerScore, Score loserScore) {
         winnerScore.setPoint(Point.FORTY);
         loserScore.setPoint(Point.FORTY);
+    }//sss
+
+    private boolean requiresIncreasePoint() {
+        return winnerPoint != Point.FORTY && winnerPoint != Point.AD;
     }
 
-    private boolean shouldIncreasePoint(Point point) {
-        return point != Point.FORTY && point != Point.AD;
-    }
+    private boolean requiresIncreaseGame() {
+        return winnerPoint != Point.FORTY || loserPoint != Point.FORTY;
+    }//sss
 
-    private boolean shouldIncreaseGame(Point point) {
-        return point != Point.FORTY;
-    }
-
-    private boolean shouldIncreaseSet() {
+    private boolean requiresIncreaseSet() {
         return winnerGame.getCounter() == 6 && (winnerGame.getCounter() - loserGame.getCounter()) >= 2
                 || winnerGame.getCounter() == 7;
     }
 
-    private boolean shouldEndMatch() {
+    private boolean requiresEndMatch() {
         return winnerSet.getCounter() == 2;
     }
 }
