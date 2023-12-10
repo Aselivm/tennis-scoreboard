@@ -2,13 +2,14 @@ package org.primshic.stepan.model;
 
 import lombok.Getter;
 import org.primshic.stepan.service.MatchScoreCalculationService;
+import org.primshic.stepan.service.score_handler_chain.ScoreHandlerChainBuilder;
 
 @Getter
 public class MatchScore {
     private final MatchScoreCalculationService matchScoreCalculation;
 
     public MatchScore() {
-        matchScoreCalculation = new MatchScoreCalculationService();
+        matchScoreCalculation = new MatchScoreCalculationService(ScoreHandlerChainBuilder.buildChain());
         this.player1Score = new Score();
         this.player2Score = new Score();
     }

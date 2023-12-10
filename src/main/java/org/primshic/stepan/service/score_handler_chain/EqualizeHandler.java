@@ -8,11 +8,12 @@ public class EqualizeHandler implements ScoreHandler {
 
     @Override
     public void handle(Score winnerScore, Score loserScore) {
-        if (requiresEqualize(loserScore.getPoint())) {
-            equalize(winnerScore, loserScore);
-            return;
+        Point loserPoint = loserScore.getPoint();
+        if (requiresEqualize(loserPoint)) {
+            handleEqualize(winnerScore, loserScore);
+        } else {
+            nextHandler.handle(winnerScore, loserScore);
         }
-        nextHandler.handle(winnerScore, loserScore);
     }
 
     @Override
@@ -24,7 +25,7 @@ public class EqualizeHandler implements ScoreHandler {
         return loserPoint == Point.AD;
     }
 
-    private void equalize(Score winnerScore, Score loserScore) {
+    private void handleEqualize(Score winnerScore, Score loserScore) {
         winnerScore.setPoint(Point.FORTY);
         loserScore.setPoint(Point.FORTY);
     }
