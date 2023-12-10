@@ -1,33 +1,46 @@
 package org.primshic.stepan.service.score_system;
 
 import lombok.Getter;
+import org.primshic.stepan.service.score_system.point_types.RegularPoint;
+import org.primshic.stepan.service.score_system.point_types.State;
+import org.primshic.stepan.service.score_system.point_types.TieBreakPoint;
 
 @Getter
-public enum Point implements ScoreSystem<Point> {
-    LOVE(0), FIFTEEN(15), THIRTY(30), FORTY(40), AD("AD");
-
-    Point(int points) {
-        this.counter = points;
-    }
-
-    Point(String ad) {
-        this.ad = ad;
-    }
-
-    private String ad;
+public class Point implements ScoreSystem<Point> {
+    private State state;
+    private RegularPoint regularPoint;
+    private TieBreakPoint tieBreakPoint;
 
     private int counter;
 
-    //todo когда будем создавать dto, то перенесем этот метод в метод-маппер преобразующий модель в дто
-    public Object getView() {
-        if (ad == null) return counter;
-        else return ad;
+    public Point(int counter, State state) {
+        this.state = state;
+        this.counter = counter;
+    }
+
+    public Point(State state) {
+        this.state = state;
+    }
+
+    public Point() {
+        this(0, State.REGULAR_GAME);
     }
 
     @Override
     public Point increaseCounter() {
-        Point[] values = Point.values();
-        int nextIndex = (this.ordinal() + 1) % values.length;
-        return values[nextIndex];
-    }//todo тестирование
+        if (state == State.REGULAR_GAME) {
+            regularPoint = RegularPoint.values()[(regularPoint.ordinal() + 1) % RegularPoint.values().length];
+            if (regularPoint == RegularPoint.AD) {
+                return new Point(State.ADVANTAGE);
+            } else {
+                return new Point(regularPoint.getCounter(), State.REGULAR_GAME);
+            }
+        } else if (state == State.TIE_BREAK) {
+            tieBreakPoint = tieBreakPoint.increaseCounter();
+            return new Point(tieBreakPoint.getCounter(), State.TIE_BREAK);
+        }
+
+    }
+
+
 }

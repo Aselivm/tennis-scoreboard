@@ -2,6 +2,8 @@ package org.primshic.stepan.service.score_handler_chain;
 
 import org.primshic.stepan.model.Score;
 import org.primshic.stepan.service.score_system.Point;
+import org.primshic.stepan.service.score_system.point_types.RegularPoint;
+import org.primshic.stepan.service.score_system.point_types.State;
 
 public class IncreasePointHandler implements ScoreHandler {
     private ScoreHandler nextHandler;
@@ -25,13 +27,22 @@ public class IncreasePointHandler implements ScoreHandler {
     private void handlePointIncrease(Score winnerScore, Score loserScore) {
         Point increased = winnerScore.getPoint().increaseCounter();
         winnerScore.setPoint(increased);
-        if (increased == Point.AD) {
+        if (increased.getState() == State.ADVANTAGE) {
             loserScore.pointReset();
         }
     }
 
-    private boolean requiresIncreasePoint(Point winnerPoint, Point loserPoint) {
-        return (winnerPoint != Point.FORTY && winnerPoint != Point.AD) || (winnerPoint == Point.FORTY && loserPoint == Point.FORTY);
+    private boolean requiresIncreasePoint(State state, Point winner, Point loser) {
+        if (state == State.REGULAR_GAME) {
+            RegularPoint winnerPoint = winner.getRegularPoint();
+            RegularPoint loserPoint = loser.getRegularPoint();
+            //todo в ретерне есть AD, а это должно быть невозможно
+            return (winnerPoint != RegularPoint.FORTY && winnerPoint != RegularPoint.AD) || (winnerPoint == RegularPoint.FORTY && loserPoint == RegularPoint.FORTY);
+        } else if (state == State.TIE_BREAK) {
+            return winner.getTieBreakPoint().getCounter() != 7;
+        } else if (state == State.ADVANTAGE) {
+
+        }
     }
 
 }

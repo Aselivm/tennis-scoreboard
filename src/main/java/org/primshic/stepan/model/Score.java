@@ -10,7 +10,7 @@ import org.primshic.stepan.service.score_system.Set;
 @Setter
 public class Score {
     public Score() {
-        this.point = Point.LOVE;
+        this.point = new Point();
         this.game = new Game();
         this.set = new Set();
     }
@@ -20,7 +20,7 @@ public class Score {
     private Point point;
 
     public void pointReset() {
-        this.point = Point.LOVE;
+        this.point = new Point();
     }
 
     public void gameReset() {
