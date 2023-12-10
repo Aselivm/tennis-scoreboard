@@ -1,18 +1,17 @@
 package org.primshic.stepan.service.score_handler_chain;
 
-import org.primshic.stepan.service.score.Score;
-import org.primshic.stepan.service.score_system.Game;
-import org.primshic.stepan.service.score_system.Point;
+import org.primshic.stepan.service.score.IndividualPlayerScore;
+import org.primshic.stepan.service.score.State;
 import org.primshic.stepan.service.score_system.Set;
+import org.primshic.stepan.service.score_system.point_types.TieBreakPoint;
 
 public class IncreaseSetHandler implements ScoreHandler {
     private ScoreHandler nextHandler;
 
     @Override
-    public void handle(Score winnerScore, Score loserScore) {
-        Game winnerGame = winnerScore.getGame();
-        Game loserGame = loserScore.getGame();
-        if (requiresIncreaseSet(winnerGame, loserGame)) {
+    public void handle(IndividualPlayerScore winnerScore, IndividualPlayerScore loserScore) {
+
+        if (requiresIncreaseSet(winnerScore, loserScore)) {
             handleSetIncrease(winnerScore, loserScore);
         }
         nextHandler.handle(winnerScore, loserScore);
@@ -23,16 +22,22 @@ public class IncreaseSetHandler implements ScoreHandler {
         this.nextHandler = nextHandler;
     }
 
-    private boolean requiresIncreaseSet(Game winnerGame, Game loserGame) {
-        return winnerGame.getCounter() == 6 && (winnerGame.getCounter() - loserGame.getCounter()) >= 2
-                || winnerGame.getCounter() == 7;
+    private boolean requiresIncreaseSet(IndividualPlayerScore winner, IndividualPlayerScore loser) {
+        State state = winner.getMatchScore().getState();
+        if (state == State.TIE_BREAK) {
+            TieBreakPoint winnerPoint = winner.getPoint().getTieBreakPoint().increaseCounter();
+            return winnerPoint.getCounter() == 7;
+        } else {
+            return winner.getGame().getCounter() == 6 && (winner.getGame().getCounter() - loser.getGame().getCounter()) >= 2; //todo shorten to "winner" and "loser"
+        }
     }
 
-    private void handleSetIncrease(Score winnerScore, Score loserScore) {
+    private void handleSetIncrease(IndividualPlayerScore winnerScore, IndividualPlayerScore loserScore) {
         Set increased = winnerScore.getSet().increaseCounter();
         winnerScore.setSet(increased);
-        winnerScore.setGame(new Game());
-        winnerScore.setPoint(Point.LOVE);
+        winnerScore.pointReset();
+        winnerScore.gameReset();
+        loserScore.pointReset();
         loserScore.gameReset();
     }
 }

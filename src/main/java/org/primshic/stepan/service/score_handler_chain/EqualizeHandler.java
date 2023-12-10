@@ -1,19 +1,20 @@
 package org.primshic.stepan.service.score_handler_chain;
 
-import org.primshic.stepan.service.score.Score;
+import org.primshic.stepan.service.score.IndividualPlayerScore;
 import org.primshic.stepan.service.score.State;
 import org.primshic.stepan.service.score_system.Point;
+import org.primshic.stepan.service.score_system.point_types.RegularPoint;
 
 public class EqualizeHandler implements ScoreHandler {
     private ScoreHandler nextHandler;
 
     @Override
-    public void handle(State state, Score winnerScore, Score loserScore) {
+    public void handle(IndividualPlayerScore winnerScore, IndividualPlayerScore loserScore) {
         Point loserPoint = loserScore.getPoint();
         if (requiresEqualize(loserPoint)) {
             handleEqualize(winnerScore, loserScore);
         } else {
-            nextHandler.handle(state, winnerScore, loserScore);
+            nextHandler.handle(winnerScore, loserScore);
         }
     }
 
@@ -22,12 +23,14 @@ public class EqualizeHandler implements ScoreHandler {
         this.nextHandler = nextHandler;
     }
 
-    private boolean requiresEqualize(Point loserPoint) {
-        return loserPoint == Point.AD;
+    private boolean requiresEqualize(Point loser) {
+        RegularPoint loserPoint = loser.getRegularPoint();
+        return loserPoint == RegularPoint.AD;
     }
 
-    private void handleEqualize(Score winnerScore, Score loserScore) {
-        winnerScore.setPoint(Point.FORTY);
-        loserScore.setPoint(Point.FORTY);
+    private void handleEqualize(IndividualPlayerScore winnerScore, IndividualPlayerScore loserScore) {
+        winnerScore.getMatchScore().setState(State.REGULAR_GAME);
+        winnerScore.setPoint(new Point(RegularPoint.FORTY));
+        loserScore.setPoint(new Point(RegularPoint.FORTY));
     }
 }

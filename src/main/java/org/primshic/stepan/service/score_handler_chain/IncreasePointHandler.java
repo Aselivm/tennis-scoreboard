@@ -1,18 +1,20 @@
 package org.primshic.stepan.service.score_handler_chain;
 
-import org.primshic.stepan.service.score.Score;
+import org.primshic.stepan.service.score.IndividualPlayerScore;
+import org.primshic.stepan.service.score.State;
 import org.primshic.stepan.service.score_system.Point;
 import org.primshic.stepan.service.score_system.point_types.RegularPoint;
-import org.primshic.stepan.service.score.State;
+import org.primshic.stepan.service.score_system.point_types.TieBreakPoint;
 
 public class IncreasePointHandler implements ScoreHandler {
     private ScoreHandler nextHandler;
 
     @Override
-    public void handle(Score winnerScore, Score loserScore) {
+    public void handle(IndividualPlayerScore winnerScore, IndividualPlayerScore loserScore) {
+        State state = winnerScore.getMatchScore().getState();
         Point winnerPoint = winnerScore.getPoint();
         Point loserPoint = loserScore.getPoint();
-        if (requiresIncreasePoint(,winnerPoint, loserPoint)) {
+        if (requiresIncreasePoint(state, winnerPoint, loserPoint)) {
             handlePointIncrease(winnerScore, loserScore);
         } else {
             nextHandler.handle(winnerScore, loserScore);
@@ -24,12 +26,23 @@ public class IncreasePointHandler implements ScoreHandler {
         this.nextHandler = nextHandler;
     }
 
-    private void handlePointIncrease(Score winnerScore, Score loserScore) {
-        Point increased = winnerScore.getPoint().increaseCounter();
-        winnerScore.setPoint(increased);
-        if (increased.getState() == State.ADVANTAGE) {
-            loserScore.pointReset();
+    private void handlePointIncrease(IndividualPlayerScore winnerScore, IndividualPlayerScore loserScore) {
+        State state = winnerScore.getMatchScore().getState();
+        Point winnerPoint = winnerScore.getPoint();
+        Point increased = null;
+        if (state == State.REGULAR_GAME) {
+            RegularPoint regularPointIncrease = winnerScore.getPoint().getRegularPoint().increaseCounter();
+            increased = new Point(regularPointIncrease);
+            if (increased.getRegularPoint() == RegularPoint.AD) {
+                winnerScore.getMatchScore().setState(State.ADVANTAGE);
+                loserScore.pointReset();
+            }
+        } else if (state == State.TIE_BREAK && winnerPoint.getCounter() != 6) {
+            TieBreakPoint tieBreakPointIncrease = winnerScore.getPoint().getTieBreakPoint().increaseCounter();
+            increased = new Point(tieBreakPointIncrease);
         }
+
+        winnerScore.setPoint(increased);
     }
 
     private boolean requiresIncreasePoint(State state, Point winner, Point loser) {
@@ -41,7 +54,16 @@ public class IncreasePointHandler implements ScoreHandler {
         } else if (state == State.TIE_BREAK) {
             return winner.getTieBreakPoint().getCounter() != 7;
         } else if (state == State.ADVANTAGE) {
+            RegularPoint winnerPoint = winner.getRegularPoint();//todo dry
+            RegularPoint loserPoint = loser.getRegularPoint();//todo dry
+            return winnerPoint != RegularPoint.AD;
+        }
 
+        //todo change
+        try {
+            throw new Exception();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 

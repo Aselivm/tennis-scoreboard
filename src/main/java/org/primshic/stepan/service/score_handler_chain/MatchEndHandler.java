@@ -1,16 +1,17 @@
 package org.primshic.stepan.service.score_handler_chain;
 
-import org.primshic.stepan.service.score.Score;
+import org.primshic.stepan.service.score.IndividualPlayerScore;
+import org.primshic.stepan.service.score.State;
 import org.primshic.stepan.service.score_system.Set;
 
 public class MatchEndHandler implements ScoreHandler {
     private ScoreHandler nextHandler;
 
     @Override
-    public void handle(Score winnerScore, Score loserScore) {
+    public void handle(IndividualPlayerScore winnerScore, IndividualPlayerScore loserScore) {
         Set winnerSet = winnerScore.getSet();
         if (requiresMatchEnd(winnerSet)) {
-            handleMatchEnd();
+            handleMatchEnd(winnerScore);
         }
     }
 
@@ -23,8 +24,7 @@ public class MatchEndHandler implements ScoreHandler {
         return winnerSet.getCounter() == 2;
     }
 
-    private void handleMatchEnd() {
-        //todo handle it
-        System.out.println("TO DO");
+    private void handleMatchEnd(IndividualPlayerScore winner) {
+        winner.getMatchScore().setState(State.FINISHED);
     }
 }

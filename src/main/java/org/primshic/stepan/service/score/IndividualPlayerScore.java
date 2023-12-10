@@ -8,13 +8,15 @@ import org.primshic.stepan.service.score_system.Set;
 
 @Getter
 @Setter
-public class Score extends MatchScore {
-    public Score() {
+public class IndividualPlayerScore {
+    public IndividualPlayerScore(MatchScore matchScore) {
+        this.matchScore = matchScore;
         this.point = new Point();
         this.game = new Game();
         this.set = new Set();
     }
 
+    private MatchScore matchScore;
     private Set set;
     private Game game;
     private Point point;
@@ -25,5 +27,9 @@ public class Score extends MatchScore {
 
     public void gameReset() {
         this.game = new Game();
+    }
+
+    public MatchScore getMatchScore() {
+        return matchScore;
     }
 }

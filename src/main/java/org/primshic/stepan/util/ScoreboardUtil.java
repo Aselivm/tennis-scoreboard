@@ -4,7 +4,8 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.primshic.stepan.model.Match;
 import org.primshic.stepan.service.FinishedMatchesPersistenceService;
-import org.primshic.stepan.service.score.Score;
+import org.primshic.stepan.service.score.IndividualPlayerScore;
+import org.primshic.stepan.service.score.State;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ScoreboardUtil {
@@ -13,8 +14,8 @@ public class ScoreboardUtil {
 
     //todo вау, как же я заебался рефакторить. refactoring needed
     public static void addPoint(Match match, int playerId) {
-        Score playerScore;
-        Score opponentScore;
+        IndividualPlayerScore playerScore;
+        IndividualPlayerScore opponentScore;
 
         if (match.getPlayer1_id() == playerId) {
             playerScore = match.getMatchScore().getPlayer1Score();
@@ -27,10 +28,10 @@ public class ScoreboardUtil {
             return;
         }
 
-        match.getMatchScore().addPoint(playerScore);
+        match.getMatchScore().addPoint(playerScore, opponentScore);
 
         //todo check if game finished
-        if (playerScore.getSet().getCounter() == 2) {
+        if (match.getMatchScore().getState() == State.FINISHED) {
             finishedMatchesPersistenceService.persist(match, playerId);
             //todo надо где-то зарендерить страничку
         }

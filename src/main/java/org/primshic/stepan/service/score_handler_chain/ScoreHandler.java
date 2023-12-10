@@ -1,11 +1,10 @@
 package org.primshic.stepan.service.score_handler_chain;
 
-import org.primshic.stepan.service.score.Score;
-import org.primshic.stepan.service.score.State;
+import org.primshic.stepan.service.score.IndividualPlayerScore;
 
 //Chain of responsibility
 public interface ScoreHandler {
-    void handle(State state, Score winnerScore, Score loserScore);
+    void handle(IndividualPlayerScore winnerScore, IndividualPlayerScore loserScore);
 
     void setNextHandler(ScoreHandler nextHandler);
 }

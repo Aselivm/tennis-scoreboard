@@ -34,6 +34,7 @@ public class MatchScoreServlet extends BaseServlet {
         req.getRequestDispatcher(pathToViews + "match_score.jsp").forward(req, resp);
     }
 
+    //todo реализовать маппер для вывода изображение. Например у меня AD отображается как единичка, а это неправильно
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UUID uuid = UUID.fromString(req.getParameter("uuid"));

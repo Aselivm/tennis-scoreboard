@@ -11,15 +11,15 @@ public class MatchScore {
     public MatchScore() {
         matchScoreCalculation = new MatchScoreCalculationService(ScoreHandlerChainBuilder.buildChain());
         this.state = State.REGULAR_GAME;
-        this.player1Score = new Score();
-        this.player2Score = new Score();
+        this.player1Score = new IndividualPlayerScore(this);
+        this.player2Score = new IndividualPlayerScore(this);
     }
 
     private State state;
 
-    private final Score player1Score;
+    private final IndividualPlayerScore player1Score;
 
-    private final Score player2Score;
+    private final IndividualPlayerScore player2Score;
 
     public void setState(State state) {
         this.state = state;
@@ -30,8 +30,8 @@ public class MatchScore {
     }
 
     //todo эту залупу перенести
-    public void addPoint(Score winnerScore, Score loserScore) {
-        matchScoreCalculation.calculate(state, winnerScore, loserScore);
+    public void addPoint(IndividualPlayerScore winnerScore, IndividualPlayerScore loserScore) {
+        matchScoreCalculation.calculate(winnerScore, loserScore);
     }
 
 }

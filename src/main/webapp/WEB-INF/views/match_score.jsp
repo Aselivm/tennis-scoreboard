@@ -1,6 +1,6 @@
 <%@ page import="org.primshic.stepan.model.Match" %>
 <%@ page import="org.primshic.stepan.entity.Players" %>
-<%@ page import="org.primshic.stepan.service.score.Score" %>
+<%@ page import="org.primshic.stepan.service.score.IndividualPlayerScore" %>
 <%@ page import="org.primshic.stepan.service.score.MatchScore" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -53,10 +53,10 @@
         <div class="points">
             <div class="table-header">POINTS</div>
             <div class="player-points">
-                <%=matchScore.getPlayer1Score().getPoint().getView()%>
+                <%=matchScore.getPlayer1Score().getPoint().getCounter()%>
             </div>
             <div class="player-points">
-                <%=matchScore.getPlayer2Score().getPoint().getView()%>
+                <%=matchScore.getPlayer2Score().getPoint().getCounter()%>
             </div>
         </div>
     </div>
