@@ -1,9 +1,9 @@
 package org.primshic.stepan.service.score_handler_chain;
 
-import org.primshic.stepan.model.Score;
+import org.primshic.stepan.service.score.Score;
 import org.primshic.stepan.service.score_system.Point;
 import org.primshic.stepan.service.score_system.point_types.RegularPoint;
-import org.primshic.stepan.service.score_system.point_types.State;
+import org.primshic.stepan.service.score.State;
 
 public class IncreasePointHandler implements ScoreHandler {
     private ScoreHandler nextHandler;
@@ -12,7 +12,7 @@ public class IncreasePointHandler implements ScoreHandler {
     public void handle(Score winnerScore, Score loserScore) {
         Point winnerPoint = winnerScore.getPoint();
         Point loserPoint = loserScore.getPoint();
-        if (requiresIncreasePoint(winnerPoint, loserPoint)) {
+        if (requiresIncreasePoint(,winnerPoint, loserPoint)) {
             handlePointIncrease(winnerScore, loserScore);
         } else {
             nextHandler.handle(winnerScore, loserScore);

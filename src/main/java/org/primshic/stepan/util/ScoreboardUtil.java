@@ -3,8 +3,8 @@ package org.primshic.stepan.util;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.primshic.stepan.model.Match;
-import org.primshic.stepan.model.Score;
 import org.primshic.stepan.service.FinishedMatchesPersistenceService;
+import org.primshic.stepan.service.score.Score;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ScoreboardUtil {
@@ -27,7 +27,7 @@ public class ScoreboardUtil {
             return;
         }
 
-        match.getMatchScore().addPoint(playerScore, opponentScore);
+        match.getMatchScore().addPoint(playerScore);
 
         //todo check if game finished
         if (playerScore.getSet().getCounter() == 2) {

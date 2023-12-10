@@ -1,7 +1,7 @@
 package org.primshic.stepan.service.score_system.point_types;
 
 public enum RegularPoint {
-    LOVE(0), FIFTEEN(15), THIRTY(30), FORTY(40), AD(0);
+    LOVE(0), FIFTEEN(15), THIRTY(30), FORTY(40), AD(1);
 
     RegularPoint(int points) {
         this.counter = points;

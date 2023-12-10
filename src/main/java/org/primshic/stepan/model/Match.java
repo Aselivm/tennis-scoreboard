@@ -1,6 +1,7 @@
 package org.primshic.stepan.model;
 
 import lombok.Getter;
+import org.primshic.stepan.service.score.MatchScore;
 
 @Getter
 public class Match {

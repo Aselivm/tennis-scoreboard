@@ -1,6 +1,6 @@
 package org.primshic.stepan.service.score_handler_chain;
 
-import org.primshic.stepan.model.Score;
+import org.primshic.stepan.service.score.Score;
 import org.primshic.stepan.service.score_system.Set;
 
 public class MatchEndHandler implements ScoreHandler {
@@ -24,7 +24,7 @@ public class MatchEndHandler implements ScoreHandler {
     }
 
     private void handleMatchEnd() {
-        //todo
+        //todo handle it
         System.out.println("TO DO");
     }
 }

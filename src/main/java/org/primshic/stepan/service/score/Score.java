@@ -1,4 +1,4 @@
-package org.primshic.stepan.model;
+package org.primshic.stepan.service.score;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,7 +8,7 @@ import org.primshic.stepan.service.score_system.Set;
 
 @Getter
 @Setter
-public class Score {
+public class Score extends MatchScore {
     public Score() {
         this.point = new Point();
         this.game = new Game();

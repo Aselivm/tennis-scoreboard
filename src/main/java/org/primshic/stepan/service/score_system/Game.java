@@ -5,10 +5,9 @@ import lombok.ToString;
 
 @Getter
 @ToString
-public class Game implements ScoreSystem<Game> {
+public class Game {
     private int counter;
 
-    @Override
     public Game increaseCounter() {
         counter++;
         return this;

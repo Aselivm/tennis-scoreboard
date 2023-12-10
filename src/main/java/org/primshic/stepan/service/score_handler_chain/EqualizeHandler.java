@@ -1,18 +1,19 @@
 package org.primshic.stepan.service.score_handler_chain;
 
-import org.primshic.stepan.model.Score;
+import org.primshic.stepan.service.score.Score;
+import org.primshic.stepan.service.score.State;
 import org.primshic.stepan.service.score_system.Point;
 
 public class EqualizeHandler implements ScoreHandler {
     private ScoreHandler nextHandler;
 
     @Override
-    public void handle(Score winnerScore, Score loserScore) {
+    public void handle(State state, Score winnerScore, Score loserScore) {
         Point loserPoint = loserScore.getPoint();
         if (requiresEqualize(loserPoint)) {
             handleEqualize(winnerScore, loserScore);
         } else {
-            nextHandler.handle(winnerScore, loserScore);
+            nextHandler.handle(state, winnerScore, loserScore);
         }
     }
 

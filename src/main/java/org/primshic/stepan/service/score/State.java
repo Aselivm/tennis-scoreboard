@@ -1,4 +1,4 @@
-package org.primshic.stepan.service.score_system.point_types;
+package org.primshic.stepan.service.score;
 
 public enum State {
     REGULAR_GAME, TIE_BREAK, ADVANTAGE

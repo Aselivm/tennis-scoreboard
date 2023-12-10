@@ -1,6 +1,6 @@
 package org.primshic.stepan.service.score_handler_chain;
 
-import org.primshic.stepan.model.Score;
+import org.primshic.stepan.service.score.Score;
 import org.primshic.stepan.service.score_system.Game;
 import org.primshic.stepan.service.score_system.Point;
 import org.primshic.stepan.service.score_system.Set;

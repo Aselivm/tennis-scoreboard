@@ -2,9 +2,9 @@ package org.primshic.stepan.controller;
 
 import org.primshic.stepan.entity.Players;
 import org.primshic.stepan.model.Match;
-import org.primshic.stepan.model.MatchScore;
 import org.primshic.stepan.service.OngoingMatchesService;
 import org.primshic.stepan.service.PlayersService;
+import org.primshic.stepan.service.score.MatchScore;
 import org.primshic.stepan.util.ScoreboardUtil;
 
 import javax.servlet.ServletException;
