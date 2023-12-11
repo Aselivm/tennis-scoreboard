@@ -38,6 +38,7 @@ public class IncreasePointHandler implements ScoreHandler {
                 loserScore.pointReset();
             }
         } else if (state == State.TIE_BREAK && winnerPoint.getCounter() != 6) {
+            System.out.println("here");
             TieBreakPoint tieBreakPointIncrease = winnerScore.getPoint().getTieBreakPoint().increaseCounter();
             increased = new Point(tieBreakPointIncrease);
         }
@@ -52,7 +53,7 @@ public class IncreasePointHandler implements ScoreHandler {
             //todo в ретерне есть AD, а это должно быть невозможно
             return (winnerPoint != RegularPoint.FORTY && winnerPoint != RegularPoint.AD) || (winnerPoint == RegularPoint.FORTY && loserPoint == RegularPoint.FORTY);
         } else if (state == State.TIE_BREAK) {
-            return winner.getTieBreakPoint().getCounter() != 7;
+            return winner.getTieBreakPoint().getCounter() != 6;
         } else if (state == State.ADVANTAGE) {
             RegularPoint winnerPoint = winner.getRegularPoint();//todo dry
             RegularPoint loserPoint = loser.getRegularPoint();//todo dry

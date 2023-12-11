@@ -11,7 +11,7 @@ public enum RegularPoint {
         return counter;
     }
 
-    private int counter;
+    private final int counter;
 
     public RegularPoint increaseCounter() {
         RegularPoint[] values = RegularPoint.values();

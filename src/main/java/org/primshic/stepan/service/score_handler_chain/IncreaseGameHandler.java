@@ -34,6 +34,8 @@ public class IncreaseGameHandler implements ScoreHandler {
         } else if (state == State.ADVANTAGE) {
             RegularPoint winnerPoint = winner.getRegularPoint();//todo dry
             return winnerPoint == RegularPoint.AD;
+        } else if (state == State.TIE_BREAK) {
+            return false;
         }
 
         //todo change

@@ -14,6 +14,7 @@ public class TieBreakPoint extends Point implements ScoreSystem<TieBreakPoint> {
 
     @Override
     public TieBreakPoint increaseCounter() {
+        System.out.println("here");
         counter++;
         return this;
     }

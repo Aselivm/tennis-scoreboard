@@ -2,6 +2,8 @@ package org.primshic.stepan.service.score_handler_chain;
 
 import org.primshic.stepan.service.score.IndividualPlayerScore;
 import org.primshic.stepan.service.score.State;
+import org.primshic.stepan.service.score_system.Game;
+import org.primshic.stepan.service.score_system.Point;
 import org.primshic.stepan.service.score_system.Set;
 import org.primshic.stepan.service.score_system.point_types.TieBreakPoint;
 
@@ -24,9 +26,9 @@ public class IncreaseSetHandler implements ScoreHandler {
 
     private boolean requiresIncreaseSet(IndividualPlayerScore winner, IndividualPlayerScore loser) {
         State state = winner.getMatchScore().getState();
+        TieBreakPoint winnerPoint = winner.getPoint().getTieBreakPoint();
         if (state == State.TIE_BREAK) {
-            TieBreakPoint winnerPoint = winner.getPoint().getTieBreakPoint().increaseCounter();
-            return winnerPoint.getCounter() == 7;
+            return winnerPoint.getCounter() == 6;
         } else {
             return winner.getGame().getCounter() == 6 && (winner.getGame().getCounter() - loser.getGame().getCounter()) >= 2; //todo shorten to "winner" and "loser"
         }
@@ -35,9 +37,9 @@ public class IncreaseSetHandler implements ScoreHandler {
     private void handleSetIncrease(IndividualPlayerScore winnerScore, IndividualPlayerScore loserScore) {
         Set increased = winnerScore.getSet().increaseCounter();
         winnerScore.setSet(increased);
-        winnerScore.pointReset();
-        winnerScore.gameReset();
-        loserScore.pointReset();
-        loserScore.gameReset();
+        winnerScore.setPoint(new Point());
+        winnerScore.setGame(new Game());
+        loserScore.setGame(new Game());
+        loserScore.setPoint(new Point());
     }
 }
