@@ -12,30 +12,36 @@ public class ScoreboardUtil {
     private static final FinishedMatchesPersistenceService finishedMatchesPersistenceService =
             new FinishedMatchesPersistenceService();
 
-    //todo вау, как же я заебался рефакторить. refactoring needed
     public static void addPoint(Match match, int playerId) {
-        IndividualPlayerScore playerScore;
-        IndividualPlayerScore opponentScore;
-
-        if (match.getPlayer1_id() == playerId) {
-            playerScore = match.getMatchScore().getPlayer1Score();
-            opponentScore = match.getMatchScore().getPlayer2Score();
-        } else if (match.getPlayer2_id() == playerId) {
-            playerScore = match.getMatchScore().getPlayer2Score();
-            opponentScore = match.getMatchScore().getPlayer1Score();
-        } else {
-            //todo throw exception or handle the case when playerId doesn't match player1_id or player2_id
-            return;
-        }
+        IndividualPlayerScore playerScore = getPlayerScore(match, playerId);
+        IndividualPlayerScore opponentScore = getOpponentScore(match, playerId);
 
         match.getMatchScore().addPoint(playerScore, opponentScore);
 
-        //todo check if game finished
         if (match.getMatchScore().getState() == State.FINISHED) {
-            finishedMatchesPersistenceService.persist(match, playerId);
-            //todo надо где-то зарендерить страничку
+            handleMatchFinished(match, playerId);
         }
+    }
+
+    //todo проверить
+    private static IndividualPlayerScore getPlayerScore(Match match, int playerId) {
+        return (match.getPlayer1_id() == playerId) ? match.getMatchScore().getPlayer1Score()
+                : match.getMatchScore().getPlayer2Score();
+    }
+
+    //todo проверить
+    private static IndividualPlayerScore getOpponentScore(Match match, int playerId) {
+        return (match.getPlayer1_id() != playerId) ? match.getMatchScore().getPlayer1Score()
+                : match.getMatchScore().getPlayer2Score();
+    }
+
+    private static void handleMatchFinished(Match match, int playerId) {
+        finishedMatchesPersistenceService.persist(match, playerId);
 
     }
 
+    //todo перенести
+    private static IndividualPlayerScore throwInvalidPlayerIdException() {
+        throw new IllegalArgumentException("PlayerId doesn't match player1_id or player2_id");
+    }
 }
