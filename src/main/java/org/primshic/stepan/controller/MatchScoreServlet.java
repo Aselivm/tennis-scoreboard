@@ -5,6 +5,7 @@ import org.primshic.stepan.model.Match;
 import org.primshic.stepan.service.OngoingMatchesService;
 import org.primshic.stepan.service.PlayersService;
 import org.primshic.stepan.service.score.MatchScore;
+import org.primshic.stepan.service.score.State;
 import org.primshic.stepan.util.ScoreboardUtil;
 
 import javax.servlet.ServletException;
@@ -23,15 +24,23 @@ public class MatchScoreServlet extends BaseServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UUID uuid = UUID.fromString(req.getParameter("uuid"));
         Match match = OngoingMatchesService.getMatch(uuid);
-
-        Optional<Players> player1 = playersService.getById(match.getPlayer1_id()); //todo 2 запроса в бд, сделать 1
-        Optional<Players> player2 = playersService.getById(match.getPlayer2_id());
         MatchScore matchScore = match.getMatchScore();
-        req.setAttribute("player1", player1.get());
-        req.setAttribute("player2", player2.get());
-        req.setAttribute("matchScore", matchScore);
-        req.setAttribute("uuid", uuid);
-        req.getRequestDispatcher(pathToViews + "match_score.jsp").forward(req, resp);
+
+        if (matchScore.getState() == State.FINISHED) {
+            //TODO берем все параметры из бд
+            ///////////////
+            ///////////
+            ////////////
+            req.getRequestDispatcher(pathToViews + "match_finished.jsp").forward(req, resp);
+        } else {
+            Optional<Players> player1 = playersService.getById(match.getPlayer1_id()); //todo 2 запроса в бд, сделать 1
+            Optional<Players> player2 = playersService.getById(match.getPlayer2_id());
+            req.setAttribute("player1", player1.get());
+            req.setAttribute("player2", player2.get());
+            req.setAttribute("matchScore", matchScore);
+            req.setAttribute("uuid", uuid);
+            req.getRequestDispatcher(pathToViews + "match_score.jsp").forward(req, resp);
+        }
     }
 
     //todo реализовать маппер для вывода изображение. Например у меня AD отображается как единичка, а это неправильно

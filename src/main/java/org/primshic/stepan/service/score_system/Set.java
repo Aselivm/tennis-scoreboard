@@ -1,9 +1,11 @@
 package org.primshic.stepan.service.score_system;
 
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 @Getter
+@Setter
 @ToString
 public class Set {
     private int counter;
