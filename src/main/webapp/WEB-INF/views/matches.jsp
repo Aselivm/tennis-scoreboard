@@ -26,13 +26,28 @@
         <p class="name">Name: </p>
         <form id="searchForm" method="GET"
               action="${pageContext.request.contextPath}/matches"
+              onsubmit="return validateSearchForm();"
         >
-            <input type="hidden" name="page" value="<%=pageNumber%>">
             <c:if test="${playerName != null}">
-                <input name="filter_by_player_name" class="search-bar" value="${playerName}" placeholder="Steve">
+                <input type="hidden" name="page" value="1">
+                <input id="playerNameInput" name="filter_by_player_name" class="search-bar" value="${playerName}"
+                       placeholder="Steve">
             </c:if>
             <button type="submit" form="searchForm" class="search-button">Search</button>
         </form>
+
+        <script>
+            // это мне чат гпт написал, не судите строго
+            function validateSearchForm() {
+                var playerNameInput = document.getElementById('playerNameInput');
+                if (playerNameInput && playerNameInput.value.trim() === '') {
+                    alert("Please enter a player name.");
+                    return false;
+                }
+                return true;
+            }
+        </script>
+
         <form id="clearForm" method="GET"
               action="${pageContext.request.contextPath}/matches"
         >
