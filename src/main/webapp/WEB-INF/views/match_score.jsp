@@ -17,6 +17,14 @@
     %>
 </head>
 <body>
+<div class="header">
+    <div class="new-game-head">
+        <a class="new-game-head-text" href="${pageContext.request.contextPath}/new-match">New game</a>
+    </div>
+    <div class="finished-matches-head">
+        <a class="finished-matches-head-text" href="/matches?page=1&filter_by_player_name=">Finished matches</a>
+    </div>
+</div>
 <div class="main-block">
     <div class="title">Match score</div>
 
