@@ -60,16 +60,18 @@
             </div>
         </div>
     </div>
-    <form method="post" action="${pageContext.request.contextPath}/match-score?uuid=<%=request.getAttribute("uuid")%>">
-        <div class="add-point-button-div">
-            <button name="player" value="<%=player1.getId()%>" type="submit" class="add-point-button">Player 1 wins
-                point!
-            </button>
-            <button name="player" value="<%=player2.getId()%>" type="submit" class="add-point-button">Player 2 wins
-                point!
-            </button>
-        </div>
-    </form>
+    <form id="add-point" class="hidden-forms" method="post"
+          action="${pageContext.request.contextPath}/match-score?uuid=<%=request.getAttribute("uuid")%>"></form>
+    <div class="add-point-button-div">
+        <button form="add-point" name="player" value="<%=player1.getId()%>" type="submit" class="add-point-button">
+            Player 1 wins
+            point!
+        </button>
+        <button form="add-point" name="player" value="<%=player2.getId()%>" type="submit" class="add-point-button">
+            Player 2 wins
+            point!
+        </button>
+    </div>
 </div>
 </body>
 </html>

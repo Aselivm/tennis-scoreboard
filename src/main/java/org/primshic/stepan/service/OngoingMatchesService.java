@@ -18,5 +18,10 @@ public class OngoingMatchesService {
         //todo что-нибудь?
         return ongoingMatches.get(uuid);
     }
+
+    public static void removeMatch(UUID uuid) {
+        //todo что-нибудь?
+        ongoingMatches.remove(uuid);
+    }
     //TODO Коллекция с онгоинг матчами в которую могут обращаться несколько потоков. Потокобезопасное взаимодействие
 }

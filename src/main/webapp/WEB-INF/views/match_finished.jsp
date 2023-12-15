@@ -1,4 +1,5 @@
-<%--
+<%@ page import="org.primshic.stepan.entity.Players" %>
+<%@ page import="org.primshic.stepan.service.score.MatchScore" %><%--
   Created by IntelliJ IDEA.
   User: step6
   Date: 04.12.2023
@@ -13,30 +14,35 @@
         <%@include file="/WEB-INF/views/assets/match-score.css" %>
         <%@include file="/WEB-INF/views/assets/general.css" %>
     </style>
+    <%
+        Players player1 = (Players) request.getAttribute("player1");
+        Players player2 = (Players) request.getAttribute("player2");
+        Players winner = (Players) request.getAttribute("winner");
+        MatchScore matchScore = (MatchScore) request.getAttribute("matchScore");
+    %>
 </head>
 <body>
-<body>
 <div class="main-block">
-    <div class="title">Match finished! Nadal wins!</div>
+    <div class="title">Match finished! <%=winner.getName()%> wins!</div>
 
     <div class="table">
         <div class="players">
             <div class="table-header">PLAYERS</div>
             <div class="player-name">
-                Nadal
+                <%=player1.getName()%>
             </div>
             <div class="player-name">
-                Federersdaadsasdadsasdasdasddas
+                <%=player2.getName()%>
             </div>
         </div>
 
         <div class="sets">
             <div class="table-header">SETS</div>
             <div class="player-sets">
-                1
+                <%=matchScore.getPlayer1Score().getSet().getCounter()%>
             </div>
             <div class="player-sets">
-                0
+                <%=matchScore.getPlayer2Score().getSet().getCounter()%>
             </div>
         </div>
 
@@ -44,6 +50,5 @@
     </div>
 
 </div>
-</body>
 </body>
 </html>

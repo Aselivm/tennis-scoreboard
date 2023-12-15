@@ -3,7 +3,6 @@ package org.primshic.stepan.controller;
 import org.primshic.stepan.entity.Players;
 import org.primshic.stepan.model.Match;
 import org.primshic.stepan.service.OngoingMatchesService;
-import org.primshic.stepan.service.PlayersService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,8 +15,7 @@ import java.util.UUID;
 
 @WebServlet(name = "New match", urlPatterns = "/new-match")
 public class NewMatchServlet extends BaseServlet {
-    private final PlayersService playersService = new PlayersService();
-
+    
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher(pathToViews + "new_match.jsp").forward(req, resp);

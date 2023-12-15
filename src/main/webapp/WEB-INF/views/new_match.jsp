@@ -12,7 +12,7 @@
 
 <body>
 <div class="new-game-inputs">
-    <form method="post" action="${pageContext.request.contextPath}/new-match">
+    <form class="start-form" method="post" action="${pageContext.request.contextPath}/new-match">
         <div class="player">
             <div class="player-name">Player name 1:</div>
             <input type="text" class="player-name-input" placeholder="Steve" name="player_name_1">

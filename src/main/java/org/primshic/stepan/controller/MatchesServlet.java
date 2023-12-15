@@ -1,7 +1,6 @@
 package org.primshic.stepan.controller;
 
 import org.primshic.stepan.entity.Matches;
-import org.primshic.stepan.service.FinishedMatchesPersistenceService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,7 +11,7 @@ import java.util.List;
 
 @WebServlet(name = "Matches", urlPatterns = "/matches")
 public class MatchesServlet extends BaseServlet {
-    private final FinishedMatchesPersistenceService finishedMatchesPersistenceService = new FinishedMatchesPersistenceService();
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
