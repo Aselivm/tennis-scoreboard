@@ -16,6 +16,7 @@
         int next = pageNumber + 1;
         int prev = pageNumber - 1;
         String playerName = (String) request.getAttribute("playerName");
+        boolean gotNext = (boolean) request.getAttribute("next");
     %>
 </head>
 <body>
@@ -36,6 +37,7 @@
               action="${pageContext.request.contextPath}/matches"
         >
             <input type="hidden" name="page" value="<%=pageNumber%>">
+            <input type="hidden" name="filter_by_player_name" class="search-bar" placeholder="Steve">
         </form>
         <button form="clearForm" class="clear-button">Clear</button>
     </div>
@@ -139,14 +141,16 @@
         <form class="hidden-forms" id="prevForm" method="GET"
               action="${pageContext.request.contextPath}/matches"
         >
+            <%if (prev != 0) {%>
             <input type="hidden" name="page" value="<%=prev%>">
+            <%} else {%>
+            <input type="hidden" name="page" value="<%=pageNumber%>">
+            <%}%>
             <% if (playerName != null) { %>
             <input type="hidden" name="filter_by_player_name" value="<%=playerName%>">
             <% } %>
         </form>
-
         <button form="prevForm" type="submit" class="next-button">Prev</button>
-
         <!-- Текущая страница -->
         <div class="current-page">
             <%=request.getAttribute("pageNumber")%>
@@ -155,12 +159,15 @@
         <form class="hidden-forms" id="nextForm" method="GET"
               action="${pageContext.request.contextPath}/matches"
         >
+            <%if (gotNext) {%>
             <input type="hidden" name="page" value="<%=next%>">
+            <%} else {%>
+            <input type="hidden" name="page" value="<%=pageNumber%>">
+            <%}%>
             <% if (playerName != null) { %>
             <input type="hidden" name="filter_by_player_name" value="<%=playerName%>">
             <% } %>
         </form>
-
         <button form="nextForm" type="submit" class="next-button">Next</button>
     </div>
 </div>

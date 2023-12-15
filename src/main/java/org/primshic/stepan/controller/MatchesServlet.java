@@ -19,11 +19,16 @@ public class MatchesServlet extends BaseServlet {
         String numberStr = req.getParameter("page");//todo перекинуть в утил
         int pageNumber = Integer.parseInt(numberStr);//todo try-catch number Format все дела
         List<Matches> page;
-        if (filterByPlayerName != null) {
+        List<Matches> nextPage;
+        if (filterByPlayerName.length() > 0) {
             page = finishedMatchesPersistenceService.getPageByName(pageNumber, filterByPlayerName);
+            nextPage = finishedMatchesPersistenceService.getPageByName(pageNumber + 1, filterByPlayerName);
         } else {
             page = finishedMatchesPersistenceService.getPage(pageNumber);
+            nextPage = finishedMatchesPersistenceService.getPage(pageNumber + 1);
         }
+        boolean next = nextPage.size() != 0;
+        req.setAttribute("next", next);
         req.setAttribute("playerName", filterByPlayerName);
         req.setAttribute("pageList", page);
         req.setAttribute("pageNumber", pageNumber);
