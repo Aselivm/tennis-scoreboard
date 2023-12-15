@@ -145,7 +145,7 @@
             <% } %>
         </form>
 
-        <button form="prevForm" type="submit" class="next-button">Next</button>
+        <button form="prevForm" type="submit" class="next-button">Prev</button>
 
         <!-- Текущая страница -->
         <div class="current-page">
