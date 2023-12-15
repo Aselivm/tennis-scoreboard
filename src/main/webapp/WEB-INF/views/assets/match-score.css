@@ -30,7 +30,6 @@
 .table-header, .player-games, .player-name, .player-sets, .player-points {
     display: flex;
     justify-content: center;
-    padding: 14px;
     font-weight: 800;
     padding: 10px 90px;
     height: 30px;

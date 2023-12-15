@@ -32,15 +32,16 @@
 }
 
 .table-header, .id, .player {
+    align-items: center;
     display: flex;
     justify-content: center;
     border-color: rgb(97, 125, 133);
     border-style: solid;
     border-width: 2px;
     margin: 1px;
-    padding: 10px 90px;
+    width: 200px;
+    height: 50px;
     font-weight: 800;
-    height: 30px;
     overflow: hidden;
 }
 
