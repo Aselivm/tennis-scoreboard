@@ -5,3 +5,14 @@ body {
     margin: 0px;
     padding: 0px;
 }
+
+.hidden-forms {
+    display: none;
+}
+
+form {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}

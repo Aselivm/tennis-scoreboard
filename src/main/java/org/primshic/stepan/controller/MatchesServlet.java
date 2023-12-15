@@ -2,7 +2,6 @@ package org.primshic.stepan.controller;
 
 import org.primshic.stepan.entity.Matches;
 import org.primshic.stepan.service.FinishedMatchesPersistenceService;
-import org.primshic.stepan.util.MatchesPageUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,7 +19,7 @@ public class MatchesServlet extends BaseServlet {
         String filterByPlayerName = req.getParameter("filter_by_player_name");
         String numberStr = req.getParameter("page");//todo перекинуть в утил
         int pageNumber = Integer.parseInt(numberStr);//todo try-catch number Format все дела
-        List<Matches> page = finishedMatchesPersistenceService.getPage(pageNumber);
+        List<Matches> page;
         if (filterByPlayerName != null) {
             page = finishedMatchesPersistenceService.getPageByName(pageNumber, filterByPlayerName);
         } else {
@@ -30,15 +29,5 @@ public class MatchesServlet extends BaseServlet {
         req.setAttribute("pageList", page);
         req.setAttribute("pageNumber", pageNumber);
         req.getRequestDispatcher(pathToViews + "matches.jsp").forward(req, resp);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String filterByPlayerName = req.getParameter("filter_by_player_name");
-        String numberStr = req.getParameter("page");//todo перекинуть в утил
-        int pageNumber = Integer.parseInt(numberStr);//todo try-catch number Format все дела
-        String value = req.getParameter("pagination");
-        int paginationValue = Integer.parseInt(value);//todo try-catch number Format все дела
-        resp.sendRedirect(MatchesPageUtil.getRedirectUrl(paginationValue, pageNumber, filterByPlayerName));
     }
 }

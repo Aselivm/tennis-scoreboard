@@ -12,6 +12,10 @@
     </style>
     <%
         List<Matches> pageList = (List<Matches>) request.getAttribute("pageList");
+        int pageNumber = (Integer) request.getAttribute("pageNumber");
+        int next = pageNumber + 1;
+        int prev = pageNumber - 1;
+        String playerName = (String) request.getAttribute("playerName");
     %>
 </head>
 <body>
@@ -19,9 +23,21 @@
     <div class="title">Finished matches</div>
     <div class="search-by-name-box">
         <p class="name">Name: </p>
-        <input class="search-bar" placeholder="Steve">
-        <button class="search-button">Search</button>
-        <button class="clear-button">Clear</button>
+        <form id="searchForm" method="GET"
+              action="${pageContext.request.contextPath}/matches"
+        >
+            <input type="hidden" name="page" value="1">
+            <c:if test="${playerName != null}">
+                <input name="filter_by_player_name" class="search-bar" value="${playerName}" placeholder="Steve">
+            </c:if>
+            <button type="submit" form="searchForm" class="search-button">Search</button>
+        </form>
+        <form id="clearForm" method="GET"
+              action="${pageContext.request.contextPath}/matches"
+        >
+            <input type="hidden" name="page" value="<%=pageNumber%>">
+        </form>
+        <button form="clearForm" class="clear-button">Clear</button>
     </div>
     <div class="table">
         <div class="id-column">
@@ -119,18 +135,34 @@
             </div>
         </div>
     </div>
-    <form method="post"
-          action=
-                  "${pageContext.request.contextPath}/matches?page=<%=request.getAttribute("pageNumber")%><%if(request.getAttribute("playerName")!=null){%>&filter_by_player_name=<%=request.getAttribute("playerName")%><%}%>"
-    >
-        <div class="pagination">
-            <button name="pagination" value="-1" class="prev-button">Prev</button>
-            <div class="current-page">
-                <%=request.getAttribute("pageNumber")%>
-            </div>
-            <button name="pagination" value="1" type="submit" class="next-button">Next</button>
+    <div class="pagination">
+        <form class="hidden-forms" id="prevForm" method="GET"
+              action="${pageContext.request.contextPath}/matches"
+        >
+            <input type="hidden" name="page" value="<%=prev%>">
+            <% if (playerName != null) { %>
+            <input type="hidden" name="filter_by_player_name" value="<%=playerName%>">
+            <% } %>
+        </form>
+
+        <button form="prevForm" type="submit" class="next-button">Next</button>
+
+        <!-- Текущая страница -->
+        <div class="current-page">
+            <%=request.getAttribute("pageNumber")%>
         </div>
-    </form>
+
+        <form class="hidden-forms" id="nextForm" method="GET"
+              action="${pageContext.request.contextPath}/matches"
+        >
+            <input type="hidden" name="page" value="<%=next%>">
+            <% if (playerName != null) { %>
+            <input type="hidden" name="filter_by_player_name" value="<%=playerName%>">
+            <% } %>
+        </form>
+
+        <button form="nextForm" type="submit" class="next-button">Next</button>
+    </div>
 </div>
 </body>
 </html>
