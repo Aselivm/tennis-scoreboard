@@ -29,8 +29,23 @@ public class FinishedMatchesPersistenceService {
         completedMatchesDAO.save(matches);
     }
 
-    //todo
+    //todo метод не отсюда
+    public List<Matches> getPageByName(int pageNumber, String playerName) {
+        List<Matches> matches = completedMatchesDAO.indexByName(playerName);
+        List<Matches> pageList = new LinkedList<>();
+        int pageSize = 5;
+        int start = (pageNumber - 1) * pageSize;
+        int end = Math.min(pageNumber * pageSize, matches.size());
+        for (int i = start; i < end; i++) {
+            if (i > matches.size()) {
+                pageList.add(matches.get(i));
+            }
+            pageList.add(matches.get(i));
+        }
+        return pageList;
+    }
 
+    //todo метод не отсюда
     public List<Matches> getPage(int pageNumber) {
         List<Matches> matches = completedMatchesDAO.index();
         List<Matches> pageList = new LinkedList<>();

@@ -16,9 +16,16 @@ public class MatchesServlet extends BaseServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String filterByPlayerName = req.getParameter("filter_by_player_name");
         String numberStr = req.getParameter("page");//todo перекинуть в утил
-        int pageNumber = Integer.parseInt(numberStr);
+        int pageNumber = Integer.parseInt(numberStr);//todo try-catch number Format все дела
         List<Matches> page = finishedMatchesPersistenceService.getPage(pageNumber);
+        if (filterByPlayerName != null) {
+            page = finishedMatchesPersistenceService.getPageByName(pageNumber, filterByPlayerName);
+        } else {
+            page = finishedMatchesPersistenceService.getPage(pageNumber);
+        }
+        req.setAttribute("playerName", filterByPlayerName);
         req.setAttribute("pageList", page);
         req.setAttribute("pageNumber", pageNumber);
         req.getRequestDispatcher(pathToViews + "matches.jsp").forward(req, resp);
@@ -26,17 +33,26 @@ public class MatchesServlet extends BaseServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String filterByPlayerName = req.getParameter("filter_by_player_name");
         String numberStr = req.getParameter("page");//todo перекинуть в утил
-        int pageNumber = Integer.parseInt(numberStr);
+        int pageNumber = Integer.parseInt(numberStr);//todo try-catch number Format все дела
         String value = req.getParameter("pagination");
-        int paginationValue = Integer.parseInt(value);
+        int paginationValue = Integer.parseInt(value);//todo try-catch number Format все дела
         if (paginationValue != 0) {
             if (paginationValue == 1) {
                 int next = pageNumber + 1;
-                resp.sendRedirect("/matches?page=" + next);
+                if (filterByPlayerName != null) {
+                    resp.sendRedirect("/matches?page=" + next + "&filter_by_player_name=" + filterByPlayerName);
+                } else {
+                    resp.sendRedirect("/matches?page=" + next);
+                }
             } else if (pageNumber != 1) {
                 int prev = pageNumber - 1;
-                resp.sendRedirect("/matches?page=" + prev);
+                if (filterByPlayerName != null) {
+                    resp.sendRedirect("/matches?page=" + prev + "&filter_by_player_name=" + filterByPlayerName);
+                } else {
+                    resp.sendRedirect("/matches?page=" + prev);
+                } //todo репит кода, иф в ифе я того маму ебал
             }
         }
     }

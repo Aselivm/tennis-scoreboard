@@ -18,6 +18,15 @@ public class CompletedMatchesDAO extends BaseDAO implements CRUD<Matches> {
         }
     }
 
+    public List<Matches> indexByName(String name) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("FROM Matches m " +
+                            "WHERE :name IN (m.players1.name, m.players2.name, m.winner.name)", Matches.class)
+                    .setParameter("name", name)
+                    .getResultList();
+        }
+    }
+
     @Override
     public Optional<Matches> getById(int id) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
