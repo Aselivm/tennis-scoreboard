@@ -27,7 +27,7 @@
         <form id="searchForm" method="GET"
               action="${pageContext.request.contextPath}/matches"
         >
-            <input type="hidden" name="page" value="1">
+            <input type="hidden" name="page" value="<%=pageNumber%>">
             <c:if test="${playerName != null}">
                 <input name="filter_by_player_name" class="search-bar" value="${playerName}" placeholder="Steve">
             </c:if>
