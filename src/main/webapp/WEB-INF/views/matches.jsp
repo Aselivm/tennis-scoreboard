@@ -46,7 +46,7 @@
 
         <script>
             function validateSearchForm() {
-                var playerNameInput = document.getElementById('playerNameInput');
+                let playerNameInput = document.getElementById('playerNameInput');
                 if (playerNameInput && playerNameInput.value.trim() === '') {
                     alert("Please enter a player name.");
                     return false;
