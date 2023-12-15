@@ -2,6 +2,7 @@ package org.primshic.stepan.controller;
 
 import org.primshic.stepan.entity.Matches;
 import org.primshic.stepan.service.FinishedMatchesPersistenceService;
+import org.primshic.stepan.util.MatchesPageUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -38,22 +39,6 @@ public class MatchesServlet extends BaseServlet {
         int pageNumber = Integer.parseInt(numberStr);//todo try-catch number Format все дела
         String value = req.getParameter("pagination");
         int paginationValue = Integer.parseInt(value);//todo try-catch number Format все дела
-        if (paginationValue != 0) {
-            if (paginationValue == 1) {
-                int next = pageNumber + 1;
-                if (filterByPlayerName != null) {
-                    resp.sendRedirect("/matches?page=" + next + "&filter_by_player_name=" + filterByPlayerName);
-                } else {
-                    resp.sendRedirect("/matches?page=" + next);
-                }
-            } else if (pageNumber != 1) {
-                int prev = pageNumber - 1;
-                if (filterByPlayerName != null) {
-                    resp.sendRedirect("/matches?page=" + prev + "&filter_by_player_name=" + filterByPlayerName);
-                } else {
-                    resp.sendRedirect("/matches?page=" + prev);
-                } //todo репит кода, иф в ифе я того маму ебал
-            }
-        }
+        resp.sendRedirect(MatchesPageUtil.getRedirectUrl(paginationValue, pageNumber, filterByPlayerName));
     }
 }

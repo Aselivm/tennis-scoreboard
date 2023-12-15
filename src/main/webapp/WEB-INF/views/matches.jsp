@@ -120,7 +120,8 @@
         </div>
     </div>
     <form method="post"
-          action="${pageContext.request.contextPath}/matches?page=<%=request.getAttribute("pageNumber")%><%if(request.getAttribute("playerName")!=null){%>&filter_by_player_name=<%=request.getAttribute("playerName")%><%}%>"
+          action=
+                  "${pageContext.request.contextPath}/matches?page=<%=request.getAttribute("pageNumber")%><%if(request.getAttribute("playerName")!=null){%>&filter_by_player_name=<%=request.getAttribute("playerName")%><%}%>"
     >
         <div class="pagination">
             <button name="pagination" value="-1" class="prev-button">Prev</button>
