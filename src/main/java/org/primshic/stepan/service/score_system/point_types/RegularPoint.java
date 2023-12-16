@@ -17,5 +17,5 @@ public enum RegularPoint {
         RegularPoint[] values = RegularPoint.values();
         int nextIndex = (this.ordinal() + 1) % values.length;
         return values[nextIndex];
-    }//todo тестирование
+    }
 }

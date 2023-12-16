@@ -50,22 +50,14 @@ public class IncreasePointHandler implements ScoreHandler {
         if (state == State.REGULAR_GAME) {
             RegularPoint winnerPoint = winner.getRegularPoint();
             RegularPoint loserPoint = loser.getRegularPoint();
-            //todo в ретерне есть AD, а это должно быть невозможно
-            return (winnerPoint != RegularPoint.FORTY && winnerPoint != RegularPoint.AD) || (winnerPoint == RegularPoint.FORTY && loserPoint == RegularPoint.FORTY);
+            return winnerPoint != RegularPoint.FORTY || loserPoint == RegularPoint.FORTY;
         } else if (state == State.TIE_BREAK) {
             return winner.getTieBreakPoint().getCounter() != 6;
         } else if (state == State.ADVANTAGE) {
-            RegularPoint winnerPoint = winner.getRegularPoint();//todo dry
-            RegularPoint loserPoint = loser.getRegularPoint();//todo dry
+            RegularPoint winnerPoint = winner.getRegularPoint();
             return winnerPoint != RegularPoint.AD;
         }
-
-        //todo change
-        try {
-            throw new Exception();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        throw new RuntimeException("Internal error");
     }
 
 }

@@ -63,8 +63,7 @@ public class FinishedMatchesPersistenceService {
         }
         return pageList;
     }
-
-    //todo сделать нормальный список
+    
     private void init() {
         if (!initCompleted) {
             for (int i = 0; i < 20; i++) {
