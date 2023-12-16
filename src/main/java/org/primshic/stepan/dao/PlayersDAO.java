@@ -44,21 +44,9 @@ public class PlayersDAO extends BaseDAO implements CRUD<Players> {
     @Override
     public Optional<Players> save(Players savedPlayer) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Transaction transaction = null;
-
-            try {
-                transaction = session.beginTransaction();
-
-                session.persist(savedPlayer);
-
-                transaction.commit();
-            } catch (Exception e) {
-                if (transaction != null) {
-                    transaction.rollback();
-                }
-                throw e;
-            }
-
+            Transaction transaction = session.beginTransaction();
+            session.persist(savedPlayer);
+            transaction.commit();
             return Optional.of(savedPlayer);
         }
     }
