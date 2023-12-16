@@ -13,7 +13,7 @@ public class PlayersService {
         return playersDAO.getById(id);
     }
 
-    public Optional<Players> save(String name) {
+    public Optional<Players> insertAndIgnoreDuplicate(String name) {
         Players player = new Players(name);
         try {
             return playersDAO.save(player);

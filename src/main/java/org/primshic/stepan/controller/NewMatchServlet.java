@@ -27,8 +27,8 @@ public class NewMatchServlet extends BaseServlet {
         String player1Name = InputUtil.getPlayerName(req, 1);
         String player2Name = InputUtil.getPlayerName(req, 2);
 
-        Optional<Players> optionalPlayer1 = playersService.save(player1Name);
-        Optional<Players> optionalPlayer2 = playersService.save(player2Name);
+        Optional<Players> optionalPlayer1 = playersService.insertAndIgnoreDuplicate(player1Name);
+        Optional<Players> optionalPlayer2 = playersService.insertAndIgnoreDuplicate(player2Name);
 
         Players player1;
         Players player2;
