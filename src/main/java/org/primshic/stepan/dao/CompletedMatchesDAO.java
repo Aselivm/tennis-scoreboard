@@ -26,6 +26,27 @@ public class CompletedMatchesDAO extends BaseDAO implements CRUD<Matches> {
         }
     }
 
+    public List<Matches> pageIndex(int pageNumber) {
+        int pageSize = 5;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("FROM Matches", Matches.class)
+                    .setFirstResult((pageNumber - 1) * pageSize)
+                    .setMaxResults(pageSize)
+                    .getResultList();
+        }
+    }
+
+    public List<Matches> pageIndexByName(int pageNumber, String name) {
+        int pageSize = 5;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("FROM Matches m WHERE :name IN (m.players1.name, m.players2.name, m.winner.name)", Matches.class)
+                    .setFirstResult((pageNumber - 1) * pageSize)
+                    .setMaxResults(pageSize)
+                    .setParameter("name", name)
+                    .getResultList();
+        }
+    }
+
     @Override
     public Optional<Matches> getById(int id) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {

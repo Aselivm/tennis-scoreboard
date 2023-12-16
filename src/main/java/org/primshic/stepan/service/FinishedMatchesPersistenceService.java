@@ -6,7 +6,6 @@ import org.primshic.stepan.entity.Players;
 import org.primshic.stepan.model.Match;
 import org.primshic.stepan.util.ScoreboardUtil;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,26 +43,13 @@ public class FinishedMatchesPersistenceService {
     }
 
     public List<Matches> getPageByName(int pageNumber, String playerName) {
-        List<Matches> matches = completedMatchesDAO.indexByName(playerName);
-        return getMatches(pageNumber, matches);
+        return completedMatchesDAO.pageIndexByName(pageNumber, playerName);
     }
 
     public List<Matches> getPage(int pageNumber) {
-        List<Matches> matches = completedMatchesDAO.index();
-        return getMatches(pageNumber, matches);
+        return completedMatchesDAO.pageIndex(pageNumber);
     }
 
-    private List<Matches> getMatches(int pageNumber, List<Matches> matches) {
-        List<Matches> pageList = new LinkedList<>();
-        int pageSize = 5;
-        int start = (pageNumber - 1) * pageSize;
-        int end = Math.min(pageNumber * pageSize, matches.size());
-        for (int i = start; i < end; i++) {
-            pageList.add(matches.get(i));
-        }
-        return pageList;
-    }
-    
     private void init() {
         if (!initCompleted) {
             for (int i = 0; i < 20; i++) {
