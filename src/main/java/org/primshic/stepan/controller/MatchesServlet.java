@@ -1,6 +1,7 @@
 package org.primshic.stepan.controller;
 
 import org.primshic.stepan.entity.Matches;
+import org.primshic.stepan.util.InputUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,9 +16,8 @@ public class MatchesServlet extends BaseServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String filterByPlayerName = req.getParameter("filter_by_player_name");
-        String numberStr = req.getParameter("page");//todo перекинуть в утил
-        int pageNumber = Integer.parseInt(numberStr);//todo try-catch number Format все дела
+        String filterByPlayerName = InputUtil.filterByPlayerName(req);
+        int pageNumber = InputUtil.getPageNumber(req);
         List<Matches> page;
         List<Matches> nextPage;
         if (filterByPlayerName.length() > 0) {

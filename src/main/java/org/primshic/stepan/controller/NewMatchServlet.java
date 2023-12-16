@@ -3,6 +3,7 @@ package org.primshic.stepan.controller;
 import org.primshic.stepan.entity.Players;
 import org.primshic.stepan.model.Match;
 import org.primshic.stepan.service.OngoingMatchesService;
+import org.primshic.stepan.util.InputUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,7 +16,7 @@ import java.util.UUID;
 
 @WebServlet(name = "New match", urlPatterns = "/new-match")
 public class NewMatchServlet extends BaseServlet {
-    
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher(pathToViews + "new_match.jsp").forward(req, resp);
@@ -23,13 +24,23 @@ public class NewMatchServlet extends BaseServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String player1Name = req.getParameter("player_name_1");
-        String player2Name = req.getParameter("player_name_2");
+        String player1Name = InputUtil.getPlayerName(req, 1);
+        String player2Name = InputUtil.getPlayerName(req, 2);
 
-        Optional<Players> player1 = playersService.getEntity(player1Name);
-        Optional<Players> player2 = playersService.getEntity(player2Name);
+        Optional<Players> optionalPlayer1 = playersService.getEntity(player1Name);
+        Optional<Players> optionalPlayer2 = playersService.getEntity(player2Name);
 
-        Match match = new Match(player1.get().getId(), player2.get().getId());
+        Players player1;
+        Players player2;
+
+        if (optionalPlayer1.isPresent() && optionalPlayer2.isPresent()) {
+            player1 = optionalPlayer1.get();
+            player2 = optionalPlayer2.get();
+        } else {
+            throw new RuntimeException("Internal error");
+        }
+
+        Match match = new Match(player1.getId(), player2.getId());
 
         UUID uuid = UUID.randomUUID();
 

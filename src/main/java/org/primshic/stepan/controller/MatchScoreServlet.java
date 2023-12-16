@@ -5,6 +5,7 @@ import org.primshic.stepan.model.Match;
 import org.primshic.stepan.service.OngoingMatchesService;
 import org.primshic.stepan.service.score.MatchScore;
 import org.primshic.stepan.service.score.State;
+import org.primshic.stepan.util.InputUtil;
 import org.primshic.stepan.util.ScoreboardUtil;
 
 import javax.servlet.ServletException;
@@ -24,21 +25,25 @@ public class MatchScoreServlet extends BaseServlet {
         Match match = OngoingMatchesService.getMatch(uuid);
         MatchScore matchScore = match.getMatchScore();
 
-        Optional<Players> player1 = playersService.getById(match.getPlayer1_id()); //todo 2 запроса в бд, сделать 1
-        Optional<Players> player2 = playersService.getById(match.getPlayer2_id());
-        req.setAttribute("player1", player1.get());
-        req.setAttribute("player2", player2.get());
+        Optional<Players> optionalPlayer1 = playersService.getById(match.getPlayer1_id());
+        Optional<Players> optionalPlayer2 = playersService.getById(match.getPlayer2_id());
 
+        Players player1;
+        Players player2;
+
+        if (optionalPlayer1.isPresent() && optionalPlayer2.isPresent()) {
+            player1 = optionalPlayer1.get();
+            player2 = optionalPlayer2.get();
+        } else {
+            throw new RuntimeException("Internal error");
+        }
+
+        req.setAttribute("player1", player1);
+        req.setAttribute("player2", player2);
         req.setAttribute("matchScore", matchScore);
+
         if (matchScore.getState() == State.FINISHED) {
-            Players winner = null;
-            if (matchScore.getPlayer1Score().getSet().getCounter() == 2) {
-                winner = player1.get();
-            } else if (matchScore.getPlayer2Score().getSet().getCounter() == 2) {
-                winner = player2.get();
-            } else {
-                //todo throw exception
-            }
+            Players winner = ScoreboardUtil.getWinner(matchScore, player1, player2);
             req.setAttribute("winner", winner);
             req.getRequestDispatcher(pathToViews + "match_finished.jsp").forward(req, resp);
             OngoingMatchesService.removeMatch(uuid);
@@ -53,12 +58,8 @@ public class MatchScoreServlet extends BaseServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UUID uuid = UUID.fromString(req.getParameter("uuid"));
         Match match = OngoingMatchesService.getMatch(uuid);
-
-        String player = req.getParameter("player");
-        int playerId = 0;
-        if (player != null) {
-            playerId = Integer.parseInt(player);
-        }//todo перенести куда-нибудь в Util
+        
+        int playerId = InputUtil.getPlayerId(req);
         ScoreboardUtil.addPoint(match, playerId);
         resp.sendRedirect("/match-score?uuid=" + uuid);
     }

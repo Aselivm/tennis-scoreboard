@@ -2,15 +2,29 @@ package org.primshic.stepan.util;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.primshic.stepan.entity.Players;
 import org.primshic.stepan.model.Match;
 import org.primshic.stepan.service.FinishedMatchesPersistenceService;
 import org.primshic.stepan.service.score.IndividualPlayerScore;
+import org.primshic.stepan.service.score.MatchScore;
 import org.primshic.stepan.service.score.State;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ScoreboardUtil {
     private static final FinishedMatchesPersistenceService finishedMatchesPersistenceService =
             new FinishedMatchesPersistenceService();
+
+    public static Players getWinner(MatchScore matchScore, Players player1, Players player2) {
+        Players winner;
+        if (matchScore.getPlayer1Score().getSet().getCounter() == 2) {
+            winner = player1;
+        } else if (matchScore.getPlayer2Score().getSet().getCounter() == 2) {
+            winner = player2;
+        } else {
+            throw new RuntimeException("Internal error");
+        }
+        return winner;
+    }
 
     public static void addPoint(Match match, int playerId) {
         IndividualPlayerScore playerScore = getPlayerScore(match, playerId);
@@ -35,13 +49,9 @@ public class ScoreboardUtil {
                 : match.getMatchScore().getPlayer2Score();
     }
 
+    //todo ну ебаный в рот валера, это не отсюда
     private static void handleMatchFinished(Match match, int playerId) {
         finishedMatchesPersistenceService.persist(match, playerId);
 
-    }
-
-    //todo перенести
-    private static IndividualPlayerScore throwInvalidPlayerIdException() {
-        throw new IllegalArgumentException("PlayerId doesn't match player1_id or player2_id");
     }
 }
