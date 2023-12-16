@@ -21,7 +21,7 @@ public class Players {
         this.name = name;
     }
 
-    @Column(name = "name")
+    @Column(name = "name", unique = true, nullable = false)
     private String name;
 
 }

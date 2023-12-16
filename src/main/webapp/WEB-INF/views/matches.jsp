@@ -67,97 +67,43 @@
     <div class="table">
         <div class="id-column">
             <div class="table-header">ID</div>
+            <% for (int i = 0; i < 5; i++) {%>
             <div class="id">
-                <%if (pageList.size() >= 1) {%>
-                <%=pageList.get(0).getId()%>
+                <%if (pageList.size() >= (i + 1)) {%>
+                <%=pageList.get(i).getId()%>
                 <%}%>
             </div>
-            <div class="id">
-                <%if (pageList.size() >= 2) {%>
-                <%=pageList.get(1).getId()%>
-                <%}%>
-            </div>
-            <div class="id"><%if (pageList.size() >= 3) {%>
-                <%=pageList.get(2).getId()%>
-                <%}%>
-            </div>
-            <div class="id"><%if (pageList.size() >= 4) {%>
-                <%=pageList.get(3).getId()%>
-                <%}%>
-            </div>
-            <div class="id"><%if (pageList.size() >= 5) {%>
-                <%=pageList.get(4).getId()%>
-                <%}%>
-            </div>
+            <%}%>
         </div>
         <div class="player1-column">
             <div class="table-header">Player 1</div>
-            <div class="player"><%if (pageList.size() >= 1) {%>
-                <%=pageList.get(0).getPlayers1().getName()%>
+            <% for (int i = 0; i < 5; i++) {%>
+            <div class="player">
+                <%if (pageList.size() >= (i + 1)) {%>
+                <%=pageList.get(i).getPlayers1().getName()%>
                 <%}%>
             </div>
-            <div class="player"><%if (pageList.size() >= 2) {%>
-                <%=pageList.get(1).getPlayers1().getName()%>
-                <%}%>
-            </div>
-            <div class="player"><%if (pageList.size() >= 3) {%>
-                <%=pageList.get(2).getPlayers1().getName()%>
-                <%}%>
-            </div>
-            <div class="player"><%if (pageList.size() >= 4) {%>
-                <%=pageList.get(3).getPlayers1().getName()%>
-                <%}%>
-            </div>
-            <div class="player"><%if (pageList.size() >= 5) {%>
-                <%=pageList.get(4).getPlayers1().getName()%>
-                <%}%>
-            </div>
+            <%}%>
         </div>
         <div class="player2-column">
             <div class="table-header">Player 2</div>
-            <div class="player"><%if (pageList.size() >= 1) {%>
-                <%=pageList.get(0).getPlayers2().getName()%>
+            <% for (int i = 0; i < 5; i++) {%>
+            <div class="player">
+                <%if (pageList.size() >= (i + 1)) {%>
+                <%=pageList.get(i).getPlayers2().getName()%>
                 <%}%>
             </div>
-            <div class="player"><%if (pageList.size() >= 2) {%>
-                <%=pageList.get(1).getPlayers2().getName()%>
-                <%}%>
-            </div>
-            <div class="player"><%if (pageList.size() >= 3) {%>
-                <%=pageList.get(2).getPlayers2().getName()%>
-                <%}%>
-            </div>
-            <div class="player"><%if (pageList.size() >= 4) {%>
-                <%=pageList.get(3).getPlayers2().getName()%>
-                <%}%>
-            </div>
-            <div class="player"><%if (pageList.size() >= 5) {%>
-                <%=pageList.get(4).getPlayers2().getName()%>
-                <%}%>
-            </div>
+            <%}%>
         </div>
         <div class="winner-column">
             <div class="table-header">Winner</div>
-            <div class="player"><%if (pageList.size() >= 1) {%>
-                <%=pageList.get(0).getWinner().getName()%>
+            <% for (int i = 0; i < 5; i++) {%>
+            <div class="player">
+                <%if (pageList.size() >= (i + 1)) {%>
+                <%=pageList.get(i).getWinner().getName()%>
                 <%}%>
             </div>
-            <div class="player"><%if (pageList.size() >= 2) {%>
-                <%=pageList.get(1).getWinner().getName()%>
-                <%}%>
-            </div>
-            <div class="player"><%if (pageList.size() >= 3) {%>
-                <%=pageList.get(2).getWinner().getName()%>
-                <%}%>
-            </div>
-            <div class="player"><%if (pageList.size() >= 4) {%>
-                <%=pageList.get(3).getWinner().getName()%>
-                <%}%>
-            </div>
-            <div class="player"><%if (pageList.size() >= 5) {%>
-                <%=pageList.get(4).getWinner().getName()%>
-                <%}%>
-            </div>
+            <%}%>
         </div>
     </div>
     <div class="pagination">
