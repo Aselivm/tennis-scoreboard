@@ -2,6 +2,7 @@ package org.primshic.stepan.controller;
 
 import org.primshic.stepan.entity.Players;
 import org.primshic.stepan.model.Match;
+import org.primshic.stepan.service.AddPointButton;
 import org.primshic.stepan.service.OngoingMatchesService;
 import org.primshic.stepan.service.score.MatchScore;
 import org.primshic.stepan.service.score.State;
@@ -43,7 +44,7 @@ public class MatchScoreServlet extends BaseServlet {
         req.setAttribute("matchScore", matchScore);
 
         if (matchScore.getState() == State.FINISHED) {
-            Players winner = ScoreboardUtil.getWinner(matchScore, player1, player2);
+            Players winner = ScoreboardUtil.getWinnerByScore(matchScore, player1, player2);
             req.setAttribute("winner", winner);
             req.getRequestDispatcher(pathToViews + "match_finished.jsp").forward(req, resp);
             OngoingMatchesService.removeMatch(uuid);
@@ -53,14 +54,13 @@ public class MatchScoreServlet extends BaseServlet {
         }
     }
 
-    //todo реализовать маппер для вывода изображение. Например у меня AD отображается как единичка, а это неправильно
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         UUID uuid = UUID.fromString(req.getParameter("uuid"));
         Match match = OngoingMatchesService.getMatch(uuid);
-        
+
         int playerId = InputUtil.getPlayerId(req);
-        ScoreboardUtil.addPoint(match, playerId);
+        AddPointButton.addPoint(match, playerId);
         resp.sendRedirect("/match-score?uuid=" + uuid);
     }
 }

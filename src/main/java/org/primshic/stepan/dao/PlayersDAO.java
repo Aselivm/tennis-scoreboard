@@ -56,7 +56,7 @@ public class PlayersDAO extends BaseDAO implements CRUD<Players> {
                 if (transaction != null) {
                     transaction.rollback();
                 }
-                throw e; // rethrow the exception after rollback
+                throw e;
             }
 
             return Optional.of(savedPlayer);

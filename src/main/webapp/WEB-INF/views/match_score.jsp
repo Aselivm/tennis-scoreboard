@@ -62,10 +62,24 @@
         <div class="points">
             <div class="table-header">POINTS</div>
             <div class="player-points">
-                <%=matchScore.getPlayer1Score().getPoint().getCounter()%>
+                <%
+                    int point1 = matchScore.getPlayer1Score().getPoint().getCounter();
+                    if (point1 == 1) {
+                %>
+                <%="AD"%>
+                <%} else {%>
+                <%=point1%>
+                <%}%>
             </div>
             <div class="player-points">
-                <%=matchScore.getPlayer2Score().getPoint().getCounter()%>
+                <%
+                    int point2 = matchScore.getPlayer2Score().getPoint().getCounter();
+                    if (point2 == 1) {
+                %>
+                <%="AD"%>
+                <%} else {%>
+                <%=point2%>
+                <%}%>
             </div>
         </div>
     </div>

@@ -30,7 +30,9 @@ public class IncreaseSetHandler implements ScoreHandler {
         if (state == State.TIE_BREAK) {
             return winnerPoint.getCounter() == 6;
         } else {
-            return winner.getGame().getCounter() == 6 && (winner.getGame().getCounter() - loser.getGame().getCounter()) >= 2; //todo shorten to "winner" and "loser"
+            int winnerGames = winner.getGame().getCounter();
+            int loserGames = loser.getGame().getCounter();
+            return winnerGames == 6 && (winnerGames - loserGames) >= 2;
         }
     }
 

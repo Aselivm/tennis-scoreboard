@@ -8,7 +8,6 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "Player", indexes = @Index(name = "idx_player_name", columnList = "name"))
-//TODO тип индекса СУБД определяет автоматически
 @Getter
 @Setter
 @NoArgsConstructor

@@ -4,6 +4,7 @@ import org.primshic.stepan.dao.CompletedMatchesDAO;
 import org.primshic.stepan.entity.Matches;
 import org.primshic.stepan.entity.Players;
 import org.primshic.stepan.model.Match;
+import org.primshic.stepan.util.ScoreboardUtil;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -20,23 +21,32 @@ public class FinishedMatchesPersistenceService {
     private final PlayersService playersService = new PlayersService();
 
     public void persist(Match match, int winnerId) {
-        Optional<Players> players1 = playersService.getById(match.getPlayer1_id());//todo 3 вызова в бд
-        Optional<Players> players2 = playersService.getById(match.getPlayer2_id());//todo 3 вызова в бд
-        Optional<Players> winner = playersService.getById(winnerId);
+        Optional<Players> optionalPlayer1 = playersService.getById(match.getPlayer1_id());
+        Optional<Players> optionalPlayer2 = playersService.getById(match.getPlayer2_id());
         Matches matches = new Matches();
-        matches.setPlayers1(players1.get());//todo сделать поумнее
-        matches.setPlayers2(players2.get());
-        matches.setWinner(winner.get());
+
+        Players player1;
+        Players player2;
+
+        if (optionalPlayer1.isPresent() && optionalPlayer2.isPresent()) {
+            player1 = optionalPlayer1.get();
+            player2 = optionalPlayer2.get();
+        } else {
+            throw new RuntimeException("Internal error");
+        }
+
+        Players winner = ScoreboardUtil.getWinnerById(winnerId, player1, player2);
+
+        matches.setPlayers1(player1);
+        matches.setPlayers2(player2);
+        matches.setWinner(winner);
         completedMatchesDAO.save(matches);
     }
 
-    //todo метод не отсюда
     public List<Matches> getPageByName(int pageNumber, String playerName) {
         List<Matches> matches = completedMatchesDAO.indexByName(playerName);
         return getMatches(pageNumber, matches);
     }
-
-    //todo метод не отсюда
 
     public List<Matches> getPage(int pageNumber) {
         List<Matches> matches = completedMatchesDAO.index();
@@ -49,14 +59,12 @@ public class FinishedMatchesPersistenceService {
         int start = (pageNumber - 1) * pageSize;
         int end = Math.min(pageNumber * pageSize, matches.size());
         for (int i = start; i < end; i++) {
-            if (i > matches.size()) {
-                pageList.add(matches.get(i));
-            }
             pageList.add(matches.get(i));
         }
         return pageList;
     }
 
+    //todo сделать нормальный список
     private void init() {
         if (!initCompleted) {
             for (int i = 0; i < 20; i++) {
