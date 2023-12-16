@@ -26,6 +26,11 @@ public class PlayersDAO extends BaseDAO implements CRUD<Players> {
         }
     }
 
+    @Override
+    public void save(Players players) {
+
+    }
+
     public List<Players> indexByName(String name) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             return session.createQuery("FROM Players where name = :name").setParameter("name", name).getResultList();
@@ -41,8 +46,7 @@ public class PlayersDAO extends BaseDAO implements CRUD<Players> {
         }
     }
 
-    @Override
-    public Optional<Players> save(Players savedPlayer) {
+    public Optional<Players> saveAndReturn(Players savedPlayer) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.persist(savedPlayer);

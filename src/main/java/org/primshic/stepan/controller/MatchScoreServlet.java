@@ -55,7 +55,7 @@ public class MatchScoreServlet extends BaseServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         UUID uuid = UUID.fromString(req.getParameter("uuid"));
         Match match = OngoingMatchesService.getMatch(uuid);
 

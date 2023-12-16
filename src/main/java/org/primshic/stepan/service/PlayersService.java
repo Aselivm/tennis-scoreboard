@@ -16,7 +16,7 @@ public class PlayersService {
     public Optional<Players> insertAndIgnoreDuplicate(String name) {
         Players player = new Players(name);
         try {
-            return playersDAO.save(player);
+            return playersDAO.saveAndReturn(player);
         } catch (PersistenceException e) {
             return playersDAO.getByName(name);
         }

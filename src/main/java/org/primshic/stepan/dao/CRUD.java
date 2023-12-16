@@ -1,7 +1,5 @@
 package org.primshic.stepan.dao;
 
-import org.primshic.stepan.entity.Players;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -10,7 +8,7 @@ public interface CRUD<T> {
 
     Optional<T> getById(int id);
 
-    Optional<Players> save(T t);
+    void save(T t);
 
     void update(int id, T t);
 

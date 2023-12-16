@@ -2,7 +2,6 @@ package org.primshic.stepan.dao;
 
 import org.hibernate.Session;
 import org.primshic.stepan.entity.Matches;
-import org.primshic.stepan.entity.Players;
 import org.primshic.stepan.util.HibernateUtil;
 
 import java.util.List;
@@ -34,14 +33,12 @@ public class CompletedMatchesDAO extends BaseDAO implements CRUD<Matches> {
         }
     }
 
-    @Override
-    public Optional<Players> save(Matches matches) {
+    public void save(Matches matches) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             session.beginTransaction();
             session.persist(matches);
             session.getTransaction().commit();
         }
-        return null;
     }
 
     @Override
