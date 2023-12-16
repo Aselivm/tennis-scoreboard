@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import org.primshic.stepan.entity.Players;
 import org.primshic.stepan.service.score.IndividualPlayerScore;
 import org.primshic.stepan.service.score.MatchScore;
+import org.primshic.stepan.service.score_system.Game;
 import org.primshic.stepan.service.score_system.Point;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -40,5 +41,14 @@ public class ScoreboardUtil {
 
     public static void resetPoints(IndividualPlayerScore playerScore) {
         playerScore.setPoint(new Point());
+    }
+
+    public static void resetGames(IndividualPlayerScore winner, IndividualPlayerScore loser) {
+        winner.setGame(new Game());
+        loser.setGame(new Game());
+    }
+
+    public static void resetGames(IndividualPlayerScore playerScore) {
+        playerScore.setGame(new Game());
     }
 }

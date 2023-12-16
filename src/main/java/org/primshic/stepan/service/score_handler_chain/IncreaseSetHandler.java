@@ -2,10 +2,9 @@ package org.primshic.stepan.service.score_handler_chain;
 
 import org.primshic.stepan.service.score.IndividualPlayerScore;
 import org.primshic.stepan.service.score.State;
-import org.primshic.stepan.service.score_system.Game;
-import org.primshic.stepan.service.score_system.Point;
 import org.primshic.stepan.service.score_system.Set;
 import org.primshic.stepan.service.score_system.point_types.TieBreakPoint;
+import org.primshic.stepan.util.ScoreboardUtil;
 
 public class IncreaseSetHandler implements ScoreHandler {
     private ScoreHandler nextHandler;
@@ -39,9 +38,7 @@ public class IncreaseSetHandler implements ScoreHandler {
     private void handleSetIncrease(IndividualPlayerScore winnerScore, IndividualPlayerScore loserScore) {
         Set increased = winnerScore.getSet().increaseCounter();
         winnerScore.setSet(increased);
-        winnerScore.setPoint(new Point());
-        winnerScore.setGame(new Game());
-        loserScore.setGame(new Game());
-        loserScore.setPoint(new Point());
+        ScoreboardUtil.resetPoints(winnerScore, loserScore);
+        ScoreboardUtil.resetGames(winnerScore, loserScore);
     }
 }

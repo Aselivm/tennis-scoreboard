@@ -27,21 +27,4 @@ public class Point {
         this.counter = regularPoint.getCounter();
         this.regularPoint = regularPoint;
     }
-
-/*    public Point increaseCounter(State state) {
-        if (state == State.REGULAR_GAME) {
-            regularPoint = RegularPoint.values()[(regularPoint.ordinal() + 1) % RegularPoint.values().length];
-            if (regularPoint == RegularPoint.AD) {
-                state = State.ADVANTAGE;
-            } else {
-                return new Point(regularPoint.getCounter(), State.REGULAR_GAME);
-            }
-        } else if (state == State.TIE_BREAK) {
-            tieBreakPoint = tieBreakPoint.increaseCounter();
-            return new Point(tieBreakPoint.getCounter(), State.TIE_BREAK);
-        }
-
-    }*/
-
-
 }

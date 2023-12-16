@@ -13,9 +13,6 @@ public class Game {
     public Game increaseCounter() {
         counter++;
         return this;
-    }//todo тестирование
-
-    public void reset() {
-        counter = 0;
     }
+
 }

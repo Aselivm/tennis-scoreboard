@@ -21,14 +21,6 @@ public class IndividualPlayerScore {
     private Game game;
     private Point point;
 
-    public void pointReset() {
-        this.point = new Point();
-    }
-
-    public void gameReset() {
-        this.game = new Game();
-    }
-
     public MatchScore getMatchScore() {
         return matchScore;
     }

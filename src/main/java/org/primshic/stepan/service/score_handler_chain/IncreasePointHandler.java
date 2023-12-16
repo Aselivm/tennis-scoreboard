@@ -5,6 +5,7 @@ import org.primshic.stepan.service.score.State;
 import org.primshic.stepan.service.score_system.Point;
 import org.primshic.stepan.service.score_system.point_types.RegularPoint;
 import org.primshic.stepan.service.score_system.point_types.TieBreakPoint;
+import org.primshic.stepan.util.ScoreboardUtil;
 
 public class IncreasePointHandler implements ScoreHandler {
     private ScoreHandler nextHandler;
@@ -35,7 +36,7 @@ public class IncreasePointHandler implements ScoreHandler {
             increased = new Point(regularPointIncrease);
             if (increased.getRegularPoint() == RegularPoint.AD) {
                 winnerScore.getMatchScore().setState(State.ADVANTAGE);
-                loserScore.pointReset();
+                ScoreboardUtil.resetPoints(loserScore);
             }
         } else if (state == State.TIE_BREAK && winnerPoint.getCounter() != 6) {
             System.out.println("here");
