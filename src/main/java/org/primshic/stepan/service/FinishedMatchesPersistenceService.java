@@ -68,10 +68,9 @@ public class FinishedMatchesPersistenceService {
     private void init() {
         if (!initCompleted) {
             for (int i = 0; i < 20; i++) {
-                Players player1 = playersService.save("Steve " + i).get();
-                Players player2 = playersService.save("John " + i).get();
+                Players player1 = playersService.save("STEVE " + i).get();
+                Players player2 = playersService.save("JOHN " + i).get();
                 Match match = new Match(player1.getId(), player2.getId());
-                System.out.println("here");
                 if (i % 2 == 0) {
                     persist(match, player1.getId());
                 } else {

@@ -14,9 +14,8 @@ public class AddPointButton {
 
     private static final MatchScoreCalculationService matchScoreCalculation =
             new MatchScoreCalculationService(ScoreHandlerChainBuilder.buildChain());
-
-    //todo все?
-    public synchronized static void addPoint(Match match, int playerId) {
+    
+    public static void addPoint(Match match, int playerId) {
         IndividualPlayerScore playerScore = getPlayerScore(match, playerId);
         IndividualPlayerScore opponentScore = getOpponentScore(match, playerId);
 

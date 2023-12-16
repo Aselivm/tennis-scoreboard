@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Cascade;
 
 
 @Entity
@@ -20,17 +19,15 @@ public class Matches {
     private int id;
 
     @ManyToOne()
-    @JoinColumn(name = "player1_id")
-    @Cascade(value = org.hibernate.annotations.CascadeType.DELETE)
+    @JoinColumn(name = "player1_id", nullable = false)
     private Players players1;
 
     @ManyToOne()
-    @JoinColumn(name = "player2_id")
-    @Cascade(value = org.hibernate.annotations.CascadeType.DELETE)
+    @JoinColumn(name = "player2_id", nullable = false)
     private Players players2;
 
     @ManyToOne()
-    @JoinColumn(name = "player_winner_id")
+    @JoinColumn(name = "player_winner_id", nullable = false)
     private Players winner;
 
 

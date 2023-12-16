@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 public class InputUtil {
 
     public static String getPlayerName(HttpServletRequest request, int playerNumber) {
-        return request.getParameter("player_name_" + playerNumber);
+        return request.getParameter("player_name_" + playerNumber).toUpperCase();
     }
 
     public static int getPlayerId(HttpServletRequest request) {
@@ -37,6 +37,6 @@ public class InputUtil {
     }
 
     public static String filterByPlayerName(HttpServletRequest request) {
-        return request.getParameter("filter_by_player_name");
+        return request.getParameter("filter_by_player_name").toUpperCase();
     }
 }
