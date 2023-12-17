@@ -43,6 +43,6 @@ public class NewMatchServlet extends BaseServlet {
         Match match = new Match(player1.getId(), player2.getId());
         UUID uuid = UUID.randomUUID();
         OngoingMatchesService.addMatch(uuid, match);
-        resp.sendRedirect("/match-score?uuid=" + uuid);
+        resp.sendRedirect(req.getContextPath() + "/match-score?uuid=" + uuid);
     }
 }

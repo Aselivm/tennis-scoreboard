@@ -61,6 +61,6 @@ public class MatchScoreServlet extends BaseServlet {
 
         int playerId = InputUtil.getPlayerId(req);
         AddPointButton.addPoint(match, playerId);
-        resp.sendRedirect("/match-score?uuid=" + uuid);
+        resp.sendRedirect(req.getContextPath() + "/match-score?uuid=" + uuid);
     }
 }
