@@ -39,7 +39,6 @@ public class IncreasePointHandler implements ScoreHandler {
                 ScoreboardUtil.resetPoints(loserScore);
             }
         } else if (state == State.TIE_BREAK && winnerPoint.getCounter() != 6) {
-            System.out.println("here");
             TieBreakPoint tieBreakPointIncrease = winnerScore.getPoint().getTieBreakPoint().increaseCounter();
             increased = new Point(tieBreakPointIncrease);
         }

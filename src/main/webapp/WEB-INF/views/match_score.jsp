@@ -64,7 +64,7 @@
             <div class="player-points">
                 <%
                     int point1 = matchScore.getPlayer1Score().getPoint().getCounter();
-                    if (point1 == 1) {
+                    if (point1 == 99) {
                 %>
                 <%="AD"%>
                 <%} else {%>
@@ -74,7 +74,7 @@
             <div class="player-points">
                 <%
                     int point2 = matchScore.getPlayer2Score().getPoint().getCounter();
-                    if (point2 == 1) {
+                    if (point2 == 99) {
                 %>
                 <%="AD"%>
                 <%} else {%>
