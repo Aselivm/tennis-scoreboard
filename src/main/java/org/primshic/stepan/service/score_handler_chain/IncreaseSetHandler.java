@@ -38,6 +38,7 @@ public class IncreaseSetHandler implements ScoreHandler {
     private void handleSetIncrease(IndividualPlayerScore winnerScore, IndividualPlayerScore loserScore) {
         Set increased = winnerScore.getSet().increaseCounter();
         winnerScore.setSet(increased);
+        winnerScore.getMatchScore().setState(State.REGULAR_GAME);
         ScoreboardUtil.resetPoints(winnerScore, loserScore);
         ScoreboardUtil.resetGames(winnerScore, loserScore);
     }
