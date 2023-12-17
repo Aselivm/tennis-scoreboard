@@ -33,7 +33,7 @@ public class IncreaseGameHandler implements ScoreHandler {
         } else if (state == State.ADVANTAGE) {
             return winner.getRegularPoint() == RegularPoint.AD;
         } else {
-            throw new RuntimeException("Internal error");
+            return false;
         }
     }
 
