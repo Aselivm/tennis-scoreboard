@@ -1,4 +1,4 @@
-package org.primshic.stepan.service.score_system;
+package org.primshic.stepan.score.score_system;
 
 import lombok.Getter;
 import lombok.Setter;

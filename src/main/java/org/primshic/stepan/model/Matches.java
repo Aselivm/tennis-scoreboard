@@ -1,4 +1,4 @@
-package org.primshic.stepan.entity;
+package org.primshic.stepan.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -18,15 +18,15 @@ public class Matches {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "player1_id", nullable = false)
     private Players players1;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "player2_id", nullable = false)
     private Players players2;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "player_winner_id", nullable = false)
     private Players winner;
 

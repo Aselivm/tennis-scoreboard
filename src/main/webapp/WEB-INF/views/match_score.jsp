@@ -1,7 +1,7 @@
 <%@ page import="org.primshic.stepan.model.Match" %>
-<%@ page import="org.primshic.stepan.entity.Players" %>
-<%@ page import="org.primshic.stepan.service.score.IndividualPlayerScore" %>
-<%@ page import="org.primshic.stepan.service.score.MatchScore" %>
+<%@ page import="org.primshic.stepan.model.Players" %>
+<%@ page import="org.primshic.stepan.score.score.IndividualPlayerScore" %>
+<%@ page import="org.primshic.stepan.score.score.MatchScore" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>

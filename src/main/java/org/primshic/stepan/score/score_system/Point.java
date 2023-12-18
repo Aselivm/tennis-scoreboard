@@ -1,9 +1,9 @@
-package org.primshic.stepan.service.score_system;
+package org.primshic.stepan.score.score_system;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.primshic.stepan.service.score_system.point_types.RegularPoint;
-import org.primshic.stepan.service.score_system.point_types.TieBreakPoint;
+import org.primshic.stepan.score.score_system.point_types.RegularPoint;
+import org.primshic.stepan.score.score_system.point_types.TieBreakPoint;
 
 @Getter
 @Setter

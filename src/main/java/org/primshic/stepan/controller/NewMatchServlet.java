@@ -1,7 +1,7 @@
 package org.primshic.stepan.controller;
 
-import org.primshic.stepan.entity.Players;
 import org.primshic.stepan.model.Match;
+import org.primshic.stepan.model.Players;
 import org.primshic.stepan.service.OngoingMatchesService;
 import org.primshic.stepan.util.InputUtil;
 
@@ -33,12 +33,12 @@ public class NewMatchServlet extends BaseServlet {
         Players player1;
         Players player2;
 
-        if (optionalPlayer1.isPresent() && optionalPlayer2.isPresent()) {
-            player1 = optionalPlayer1.get();
-            player2 = optionalPlayer2.get();
-        } else {
+        if (optionalPlayer1.isEmpty() || optionalPlayer2.isEmpty()) {
             throw new RuntimeException("Internal error");
         }
+
+        player1 = optionalPlayer1.get();
+        player2 = optionalPlayer2.get();
 
         Match match = new Match(player1.getId(), player2.getId());
         UUID uuid = UUID.randomUUID();

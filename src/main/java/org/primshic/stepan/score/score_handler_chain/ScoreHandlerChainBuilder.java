@@ -1,4 +1,4 @@
-package org.primshic.stepan.service.score_handler_chain;
+package org.primshic.stepan.score.score_handler_chain;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

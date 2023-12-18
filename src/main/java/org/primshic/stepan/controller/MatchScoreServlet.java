@@ -1,11 +1,11 @@
 package org.primshic.stepan.controller;
 
-import org.primshic.stepan.entity.Players;
 import org.primshic.stepan.model.Match;
-import org.primshic.stepan.service.AddPointButton;
+import org.primshic.stepan.model.Players;
+import org.primshic.stepan.score.AddPointButton;
+import org.primshic.stepan.score.score.MatchScore;
+import org.primshic.stepan.score.score.State;
 import org.primshic.stepan.service.OngoingMatchesService;
-import org.primshic.stepan.service.score.MatchScore;
-import org.primshic.stepan.service.score.State;
 import org.primshic.stepan.util.InputUtil;
 import org.primshic.stepan.util.ScoreboardUtil;
 
@@ -32,13 +32,12 @@ public class MatchScoreServlet extends BaseServlet {
         Players player1;
         Players player2;
 
-        if (optionalPlayer1.isPresent() && optionalPlayer2.isPresent()) {
-            player1 = optionalPlayer1.get();
-            player2 = optionalPlayer2.get();
-        } else {
+        if (optionalPlayer1.isEmpty() || optionalPlayer2.isEmpty()) {
             throw new RuntimeException("Internal error");
         }
 
+        player1 = optionalPlayer1.get();
+        player2 = optionalPlayer2.get();
         req.setAttribute("player1", player1);
         req.setAttribute("player2", player2);
         req.setAttribute("matchScore", matchScore);

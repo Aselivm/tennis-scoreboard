@@ -1,6 +1,6 @@
-package org.primshic.stepan.service.score_handler_chain;
+package org.primshic.stepan.score.score_handler_chain;
 
-import org.primshic.stepan.service.score.IndividualPlayerScore;
+import org.primshic.stepan.score.score.IndividualPlayerScore;
 
 //Chain of responsibility
 public interface ScoreHandler {

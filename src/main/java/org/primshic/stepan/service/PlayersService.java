@@ -1,20 +1,19 @@
 package org.primshic.stepan.service;
 
 import jakarta.persistence.PersistenceException;
-import org.primshic.stepan.dao.PlayersDAO;
-import org.primshic.stepan.entity.Players;
+import org.primshic.stepan.dao.Players;
 
 import java.util.Optional;
 
 public class PlayersService {
-    private final PlayersDAO playersDAO = new PlayersDAO();
+    private final Players playersDAO = new Players();
 
-    public Optional<Players> getById(int id) {
+    public Optional<org.primshic.stepan.model.Players> getById(int id) {
         return playersDAO.getById(id);
     }
 
-    public Optional<Players> insertAndIgnoreDuplicate(String name) {
-        Players player = new Players(name);
+    public Optional<org.primshic.stepan.model.Players> insertAndIgnoreDuplicate(String name) {
+        org.primshic.stepan.model.Players player = new org.primshic.stepan.model.Players(name);
         try {
             return playersDAO.saveAndReturn(player);
         } catch (PersistenceException e) {

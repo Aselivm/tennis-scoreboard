@@ -1,5 +1,5 @@
-<%@ page import="org.primshic.stepan.entity.Players" %>
-<%@ page import="org.primshic.stepan.service.score.MatchScore" %><%--
+<%@ page import="org.primshic.stepan.model.Players" %>
+<%@ page import="org.primshic.stepan.score.score.MatchScore" %><%--
   Created by IntelliJ IDEA.
   User: step6
   Date: 04.12.2023

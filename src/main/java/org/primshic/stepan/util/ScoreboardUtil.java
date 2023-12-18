@@ -2,11 +2,11 @@ package org.primshic.stepan.util;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.primshic.stepan.entity.Players;
-import org.primshic.stepan.service.score.IndividualPlayerScore;
-import org.primshic.stepan.service.score.MatchScore;
-import org.primshic.stepan.service.score_system.Game;
-import org.primshic.stepan.service.score_system.Point;
+import org.primshic.stepan.model.Players;
+import org.primshic.stepan.score.score.IndividualPlayerScore;
+import org.primshic.stepan.score.score.MatchScore;
+import org.primshic.stepan.score.score_system.Game;
+import org.primshic.stepan.score.score_system.Point;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ScoreboardUtil {

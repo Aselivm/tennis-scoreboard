@@ -2,10 +2,10 @@ package org.primshic.stepan;
 
 import org.junit.Assert;
 import org.primshic.stepan.model.Match;
-import org.primshic.stepan.service.AddPointButton;
-import org.primshic.stepan.service.score.State;
-import org.primshic.stepan.service.score_system.Point;
-import org.primshic.stepan.service.score_system.point_types.RegularPoint;
+import org.primshic.stepan.score.AddPointButton;
+import org.primshic.stepan.score.score.State;
+import org.primshic.stepan.score.score_system.Point;
+import org.primshic.stepan.score.score_system.point_types.RegularPoint;
 
 public class Test {
     @org.junit.Test

@@ -1,9 +1,9 @@
 package org.primshic.stepan.service;
 
-import org.primshic.stepan.dao.CompletedMatchesDAO;
-import org.primshic.stepan.entity.Matches;
-import org.primshic.stepan.entity.Players;
+import org.primshic.stepan.dao.CompletedMatches;
 import org.primshic.stepan.model.Match;
+import org.primshic.stepan.model.Matches;
+import org.primshic.stepan.model.Players;
 import org.primshic.stepan.util.ScoreboardUtil;
 
 import java.util.List;
@@ -16,7 +16,7 @@ public class FinishedMatchesPersistenceService {
     }
 
     private static boolean initCompleted = false;
-    private final CompletedMatchesDAO completedMatchesDAO = new CompletedMatchesDAO();
+    private final CompletedMatches completedMatchesDAO = new CompletedMatches();
     private final PlayersService playersService = new PlayersService();
 
     public void persist(Match match, int winnerId) {

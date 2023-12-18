@@ -10,21 +10,23 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class HibernateUtil {
-    private static StandardServiceRegistry registry;
-    private static SessionFactory sessionFactory;
+    private static volatile StandardServiceRegistry registry;
+    private static volatile SessionFactory sessionFactory;
 
     public static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
-            try {
-                registry = new StandardServiceRegistryBuilder().configure().build();
-                MetadataSources sources = new MetadataSources(registry);
-                Metadata metadata = sources.getMetadataBuilder().build();
-                sessionFactory = metadata.getSessionFactoryBuilder().build();
+            synchronized (HibernateUtil.class) {
+                try {
+                    registry = new StandardServiceRegistryBuilder().configure().build();
+                    MetadataSources sources = new MetadataSources(registry);
+                    Metadata metadata = sources.getMetadataBuilder().build();
+                    sessionFactory = metadata.getSessionFactoryBuilder().build();
 
-            } catch (Exception e) {
-                e.printStackTrace();
-                if (registry != null) {
-                    StandardServiceRegistryBuilder.destroy(registry);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    if (registry != null) {
+                        StandardServiceRegistryBuilder.destroy(registry);
+                    }
                 }
             }
         }

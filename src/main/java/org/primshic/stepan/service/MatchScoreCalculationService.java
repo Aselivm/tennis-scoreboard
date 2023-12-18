@@ -1,8 +1,8 @@
 package org.primshic.stepan.service;
 
 import lombok.AllArgsConstructor;
-import org.primshic.stepan.service.score.IndividualPlayerScore;
-import org.primshic.stepan.service.score_handler_chain.ScoreHandler;
+import org.primshic.stepan.score.score.IndividualPlayerScore;
+import org.primshic.stepan.score.score_handler_chain.ScoreHandler;
 
 @AllArgsConstructor
 public class MatchScoreCalculationService {

@@ -1,7 +1,7 @@
-package org.primshic.stepan.service.score_system.point_types;
+package org.primshic.stepan.score.score_system.point_types;
 
 
-import org.primshic.stepan.service.score_system.ScoreSystem;
+import org.primshic.stepan.score.score_system.ScoreSystem;
 
 import java.awt.*;
 

@@ -1,4 +1,4 @@
-package org.primshic.stepan.service.score_system.point_types;
+package org.primshic.stepan.score.score_system.point_types;
 
 public enum RegularPoint {
     LOVE(0), FIFTEEN(15), THIRTY(30), FORTY(40), AD(99);

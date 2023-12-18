@@ -1,6 +1,6 @@
 package org.primshic.stepan.controller;
 
-import org.primshic.stepan.entity.Matches;
+import org.primshic.stepan.model.Matches;
 import org.primshic.stepan.util.InputUtil;
 
 import javax.servlet.ServletException;

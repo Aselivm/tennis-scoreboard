@@ -1,10 +1,10 @@
-package org.primshic.stepan.service.score_handler_chain;
+package org.primshic.stepan.score.score_handler_chain;
 
-import org.primshic.stepan.service.score.IndividualPlayerScore;
-import org.primshic.stepan.service.score.State;
-import org.primshic.stepan.service.score_system.Game;
-import org.primshic.stepan.service.score_system.Point;
-import org.primshic.stepan.service.score_system.point_types.RegularPoint;
+import org.primshic.stepan.score.score.IndividualPlayerScore;
+import org.primshic.stepan.score.score.State;
+import org.primshic.stepan.score.score_system.Game;
+import org.primshic.stepan.score.score_system.Point;
+import org.primshic.stepan.score.score_system.point_types.RegularPoint;
 import org.primshic.stepan.util.ScoreboardUtil;
 
 public class IncreaseGameHandler implements ScoreHandler {

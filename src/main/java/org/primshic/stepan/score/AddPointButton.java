@@ -1,11 +1,13 @@
-package org.primshic.stepan.service;
+package org.primshic.stepan.score;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.primshic.stepan.model.Match;
-import org.primshic.stepan.service.score.IndividualPlayerScore;
-import org.primshic.stepan.service.score.State;
-import org.primshic.stepan.service.score_handler_chain.ScoreHandlerChainBuilder;
+import org.primshic.stepan.score.score.IndividualPlayerScore;
+import org.primshic.stepan.score.score.State;
+import org.primshic.stepan.score.score_handler_chain.ScoreHandlerChainBuilder;
+import org.primshic.stepan.service.FinishedMatchesPersistenceService;
+import org.primshic.stepan.service.MatchScoreCalculationService;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class AddPointButton {
@@ -14,7 +16,7 @@ public class AddPointButton {
 
     private static final MatchScoreCalculationService matchScoreCalculation =
             new MatchScoreCalculationService(ScoreHandlerChainBuilder.buildChain());
-    
+
     public static void addPoint(Match match, int playerId) {
         IndividualPlayerScore playerScore = getPlayerScore(match, playerId);
         IndividualPlayerScore opponentScore = getOpponentScore(match, playerId);

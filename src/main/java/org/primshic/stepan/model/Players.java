@@ -1,4 +1,4 @@
-package org.primshic.stepan.entity;
+package org.primshic.stepan.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
